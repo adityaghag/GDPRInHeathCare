@@ -1,0 +1,120 @@
+.App {
+  text-align: center;
+  font-family: Raleway;
+}
+
+.navbar-brand {
+	font-weight: 700;
+}
+
+.navbar {
+	text-transform: uppercase;
+	background: white;
+	border-bottom: 1.5px solid black;
+}
+
+.navbar a {
+	color: black;
+}
+
+.nav-item {
+	font-weight: 520;
+}
+
+.navbar-light .navbar-toggler {
+	color: red;
+}
+
+.nav-item > a:hover {
+  color: white;
+  background-color: black;
+}
+
+#main {
+	width: 100%;
+	min-height: 100vh;
+	padding-top: 170px;
+	background:url(https://images.pexels.com/photos/249348/pexels-photo-249348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+	background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    opacity: 0.90;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: large;
+}
+
+#main h1 {
+	font-weight: 700;
+	padding-bottom: 90px;
+}
+
+#main h3 {
+  font-weight: 550;
+  padding-top: 20px;
+}
+
+.btn-dark {
+	padding-top: 20px;
+	background-color: #000000;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+}
+
+.btn-dark:hover {
+	background-color: #000000;
+}
+
+#main p {
+	padding-bottom: 20px;
+}
+
+#about {
+	width: 100%;
+	min-height: 100vh;
+	padding-top: 60px;
+}
+
+#about h1 {
+	text-transform: uppercase;
+	font-weight: 700;
+	padding-bottom: 40px;
+}
+
+.aboutbg {
+	background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80) center  no-repeat;
+	min-height: 450px;
+
+}
+
+#about p {
+	text-align: justify;
+	color: black;
+	padding-top: 14px;
+}
+
+#services {
+	width: 100%;
+	min-height: 100vh;
+	padding-top: 50px;
+}
+
+#services h1 {
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+#services h3 {
+	font-weight: 700;
+}
+
+#services .card {
+	margin-top: 30px;
+	border:transparent;
+	background: transparent;
+}
+
+
+
