@@ -1,17 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Userdash from './Userdash';
 import booking from './component/patient/booking/Booking';
-import login from './Login';
-import register from './component/registeration/Register';
-import stafflogin from './Stafflogin';
+import login from './component/registeration and login/patient/Login';
+import register from './component/registeration and login/patient/Register';
+import stafflogin from './component/registeration and login/staff/Stafflogin';
 import patient from './component/patient/Patient';
 import reportview from './component/patient/Reportview';
-import doctor from './Doctor';
-import patientinfo from './component/patient/Patientinfo';
-import lab from './Lab';
-import pendingtests from './component/patient/Pendingtests';
-import testresults from './Testresults';
+import doctor from './component/doctor/Doctor';
+import patientinfo from './component/doctor/Patientinfo';
+import lab from './component/lab/Lab';
+import pendingtests from './component/lab/Pendingtests';
+import testresults from './component/lab/Testresults';
 import admin from './component/admin/Admin';
 import adddoctor from './component/admin/Adddoctor';
 import addlab from './component/admin/Addlab';
@@ -23,7 +22,6 @@ const Routes = () => {
         <div>
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/user" component={Userdash} />
                 <Route path="/booking" component={booking} />
                 <Route path="/login" component={login} />
                 <Route path="/register" component={register} />
