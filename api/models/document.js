@@ -5,8 +5,9 @@ const documentSchema = mongoose.Schema({
     patientId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     doctorId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     labId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    documents:{type:String},
+    documentFile:{type:String},
+    fileName:String,
     comments:String
 });
 
-module.exports = mongoose.model('Appointment',documentSchema)
+module.exports = mongoose.model('Document',documentSchema)
