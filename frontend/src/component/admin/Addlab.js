@@ -2,6 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AdminDrawer from './AdminDrawer';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+
 
 const drawerWidth = 240;
 
@@ -37,12 +43,51 @@ export default function Addlab() {
       <AdminDrawer></AdminDrawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Welcome Doctor Sahab !
-        </Typography>
-        <Typography paragraph>
-          Sabko jaadu ki jhappi do
-        </Typography>
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Add Lab
+            </Typography>
+            <br />
+            <form className={classes.form} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="loginId"
+                    label="LoginId"
+                    name="loginId"
+                    autoComplete="loginId"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+              </Grid>
+              <br></br>
+              <Button
+                type="submit"
+                fullWidth
+                variant="outlined"
+                color="primary"
+              >
+                save
+          </Button>
+            </form>
+          </div>
+        </Container>
       </main>
     </div>
   );

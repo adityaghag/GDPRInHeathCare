@@ -39,10 +39,7 @@ export default function Admin() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-          Welcome Doctor Sahab !
-        </Typography>
-        <Typography paragraph>
-          Sabko jaadu ki jhappi do
+          Welcome Admin
         </Typography>
       </main>
     </div>
