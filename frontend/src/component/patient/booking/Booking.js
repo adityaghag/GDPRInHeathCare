@@ -87,7 +87,6 @@ export default function Booking() {
           container
           direction="column"
           justify="center"
-          alignItems="left"
           spacing={2}
         >
           {step === 1 ? (
@@ -101,7 +100,6 @@ export default function Booking() {
           container
           direction="column"
           justify="center"
-          alignItems="center"
           alignContent='center'
           spacing={2}
         >

@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 export default function Booking() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState('Cardiologist');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
