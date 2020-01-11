@@ -75,10 +75,7 @@ export default function Reportview() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Dekh le kitna bimar hai !
-        </Typography>
-        <Typography paragraph>
-         Report padh le 
+         Your Reports
         </Typography>
       </main>
     </div>
