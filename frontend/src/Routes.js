@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Userdash from './Userdash';
 import booking from './component/patient/booking/Booking';
 import login from './Login';
-import register from './Register';
+import register from './component/registeration/Register';
 import stafflogin from './Stafflogin';
 import patient from './component/patient/Patient';
 import reportview from './component/patient/Reportview';
