@@ -74,10 +74,7 @@ export default function Lab() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Welcome Doctor Sahab !
-        </Typography>
-        <Typography paragraph>
-         Sabko jaadu ki jhappi do
+         Welcome !
         </Typography>
       </main>
     </div>

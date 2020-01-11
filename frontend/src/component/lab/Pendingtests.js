@@ -74,10 +74,7 @@ export default function Pendingtests() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Welcome Doctor Sahab !
-        </Typography>
-        <Typography paragraph>
-         Sabko jaadu ki jhappi do
+         Pending Results
         </Typography>
       </main>
     </div>
