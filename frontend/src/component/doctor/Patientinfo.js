@@ -70,12 +70,7 @@ export default function Patientinfo() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-         Welcome Doctor Sahab !
-        </Typography>
-        <Typography paragraph>
-         Sabko jaadu ki jhappi do
-        </Typography>
+      
       </main>
     </div>
   );

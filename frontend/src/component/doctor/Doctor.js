@@ -71,7 +71,7 @@ export default function Doctor() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Welcome Doctor Sahab !
+         Welcome Doctor !
         </Typography>
       </main>
     </div>
