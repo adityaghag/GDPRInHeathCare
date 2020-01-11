@@ -52,6 +52,9 @@ export default function Lab() {
                 <MenuItem component={Link} to="/pendingtests">Pending Tests</MenuItem>
             </MenuList>
             <MenuList>
+                <MenuItem component={Link} to="/bookingappointment">Booking appointment</MenuItem>
+            </MenuList>
+            <MenuList>
                 <MenuItem component={Link} to="/testresults">Test Results</MenuItem>
             </MenuList>
             <Divider />

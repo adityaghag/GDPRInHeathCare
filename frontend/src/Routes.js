@@ -10,6 +10,7 @@ import doctor from './component/doctor/Doctor';
 import patientinfo from './component/doctor/Patientinfo';
 import lab from './component/lab/Lab';
 import pendingtests from './component/lab/Pendingtests';
+import BookingAppointment from './component/lab/BookingAppointment';
 import testresults from './component/lab/Testresults';
 import admin from './component/admin/Admin';
 import adddoctor from './component/admin/Adddoctor';
@@ -34,6 +35,7 @@ const Routes = () => {
                 <Route path="/pendingtests" component={pendingtests} />
                 <Route path="/testresults" component={testresults} />
                 <Route path="/admin" component={admin} />
+                <Route path="/bookingappointment" component={BookingAppointment} />
                 <Route path="/adddoctor" component={adddoctor} />
                 <Route path="/addlab" component={addlab} />
                 <Route component={NotFound} />
