@@ -5,13 +5,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles(theme => ({
 
     card: {
-        maxWidth: 250,
+        maxWidth: 300,
     },
     bullet: {
         display: 'inline-block',
@@ -27,29 +27,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Patientinfo() {
+export default function Cards(props) {
+    let age = props.age;
+    let gender = props.gender;
+    let medicalHistory = props.medicalHistory;
+
+
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
+
     return (
         <Card className={classes.card}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Word of the Day
-        </Typography>
-                <Typography variant="h5" component="h2">
-                    be{bull}nev{bull}o{bull}lent
-        </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    adjective
-        </Typography>
-                <Typography variant="body2" component="p">
-                    well meaning and kindly.
-          <br />
-                    {'"a benevolent smile"'}
+                    age: {age}
                 </Typography>
+                <Typography variant="h5" component="h2">
+                    gender: {gender}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                    medicalHistory: {medicalHistory}
+                </Typography>
+                <TextField
+                    fullWidth
+                    id="filled-textarea"
+                    label="Multiline Placeholder"
+                    placeholder="Placeholder"
+                    multiline
+                    variant="filled"
+                />
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button variant="outlined" color="primary">Save</Button>
             </CardActions>
         </Card>
     );
