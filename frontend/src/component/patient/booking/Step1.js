@@ -24,6 +24,14 @@ export default function Booking() {
                     <FormControlLabel value="Gastroenterologist" control={<Radio />} label="Gastroenterologist" />
                     <FormControlLabel value="Liver Transplant Surgeon" control={<Radio />} label="Liver Transplant Surgeon" />
                     <FormControlLabel value="Dentist" control={<Radio />} label="Dentist" />
+                    <FormControlLabel value="Psychiatrist" control={<Radio />} label="Psychiatrist" />
+                    <FormControlLabel value="Urologist" control={<Radio />} label="Urologist" />
+                    <FormControlLabel value="Gynecologist" control={<Radio />} label="Gynecologist" />
+                    <FormControlLabel value="Pediatrician" control={<Radio />} label="Pediatrician" />
+
+
+
+
 
 
 
