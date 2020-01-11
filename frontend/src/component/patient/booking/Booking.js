@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.primary.default,
     padding: theme.spacing(3),
+  },
+  Button: {
+    margin: '12px'
   }
 }));
 
@@ -80,27 +83,33 @@ export default function Booking() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <div className={classes.paper}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="left"
+          spacing={2}
+        >
           {step === 1 ? (
             <Step1></Step1>) :
             step === 2 ? (
               <Step2></Step2>) :
               <Step3></Step3>
           }
-        </div>
+        </Grid>
         <Grid
           container
-          direction="row"
+          direction="column"
           justify="center"
           alignItems="center"
+          alignContent='center'
+          spacing={2}
         >
           <Grid item xs>
             {step !== 1 ? (
-              <Button variant="contained" color="primary" onClick={() => setStep(step - 1)}>Back</Button>) :
+              <Button variant="contained" color="primary" onClick={() => setStep(step - 1)} className={classes.Button}>Back</Button>) :
               ''
             }
-          </Grid>
-          <Grid item xs>
             {step !== 3 ? (
               <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Next</Button>) :
               ''

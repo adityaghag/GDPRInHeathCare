@@ -24,10 +24,6 @@ export default function Booking() {
                     <FormControlLabel value="Gastroenterologist" control={<Radio />} label="Gastroenterologist" />
                     <FormControlLabel value="Liver Transplant Surgeon" control={<Radio />} label="Liver Transplant Surgeon" />
                     <FormControlLabel value="Dentist" control={<Radio />} label="Dentist" />
-
-
-
-
                 </RadioGroup>
             </FormControl>
         </React.Fragment>
