@@ -4,13 +4,16 @@ import Drawer from '@material-ui/core/Drawer';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import { MenuList, MenuItem } from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
+
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-    },
     appBar: {
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
@@ -22,12 +25,7 @@ const useStyles = makeStyles(theme => ({
     drawerPaper: {
         width: drawerWidth,
     },
-    toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.primary.default,
-        padding: theme.spacing(3),
-    },
+    toolbar: theme.mixins.toolbar
 }));
 
 
@@ -35,32 +33,41 @@ export default function Lab() {
     const classes = useStyles();
 
     return (
-
-        <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-                paper: classes.drawerPaper,
-            }}
-            anchor="left"
-        >
-            <div className={classes.toolbar} />
-            <MenuList>
-                <MenuItem component={Link} to="/lab">Home</MenuItem>
-            </MenuList>
-            <MenuList>
-                <MenuItem component={Link} to="/pendingtests">Pending Tests</MenuItem>
-            </MenuList>
-            <MenuList>
-                <MenuItem component={Link} to="/bookingappointment">Booking appointment</MenuItem>
-            </MenuList>
-            <MenuList>
-                <MenuItem component={Link} to="/testresults">Test Results</MenuItem>
-            </MenuList>
-            <Divider />
-            <MenuList>
-                <MenuItem component={Link} to="/stafflogin">Logout</MenuItem>
-            </MenuList>
-        </Drawer>
+        <React.Fragment>
+            <CssBaseline />
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                    <Typography variant="h6" noWrap>
+                        HSRW Lab Dashboard
+          </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                anchor="left"
+            >
+                <div className={classes.toolbar} />
+                <MenuList>
+                    <MenuItem component={Link} to="/lab">Home</MenuItem>
+                </MenuList>
+                <MenuList>
+                    <MenuItem component={Link} to="/pendingtests">Pending Tests</MenuItem>
+                </MenuList>
+                <MenuList>
+                    <MenuItem component={Link} to="/bookingappointment">Booking appointment</MenuItem>
+                </MenuList>
+                <MenuList>
+                    <MenuItem component={Link} to="/testresults">Test Results</MenuItem>
+                </MenuList>
+                <Divider />
+                <MenuList>
+                    <MenuItem component={Link} to="/stafflogin">Logout</MenuItem>
+                </MenuList>
+            </Drawer>
+        </React.Fragment>
     );
 }
