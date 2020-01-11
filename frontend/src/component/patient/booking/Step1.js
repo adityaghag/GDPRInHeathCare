@@ -14,11 +14,20 @@ export default function Booking() {
     return (
         <React.Fragment>
             <FormControl component="fieldset" >
-                <FormLabel component="legend">Gender</FormLabel>
+                <FormLabel component="legend">Categories</FormLabel>
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <FormControlLabel value="female" control={<Radio />} label="Cardiologist" />
-                    <FormControlLabel value="male" control={<Radio />} label="Neurosurgeon" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <FormControlLabel value="Cardiologist" control={<Radio />} label="Cardiologist" />
+                    <FormControlLabel value="Neurosurgeon" control={<Radio />} label="Neurosurgeon" />
+                    <FormControlLabel value="Orthopedcian" control={<Radio />} label="Orthopedcian" />
+                    <FormControlLabel value="Oncologist" control={<Radio />} label="Oncologist" />
+                    <FormControlLabel value="Neurologist" control={<Radio />} label="Neurologist" />
+                    <FormControlLabel value="Gastroenterologist" control={<Radio />} label="Gastroenterologist" />
+                    <FormControlLabel value="Liver Transplant Surgeon" control={<Radio />} label="Liver Transplant Surgeon" />
+                    <FormControlLabel value="Dentist" control={<Radio />} label="Dentist" />
+
+
+
+
                 </RadioGroup>
             </FormControl>
         </React.Fragment>
