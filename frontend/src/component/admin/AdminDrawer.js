@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Adddoctor() {
+export default function AdminDrawer() {
     const classes = useStyles();
 
     return (

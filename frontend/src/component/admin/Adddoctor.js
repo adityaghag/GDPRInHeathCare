@@ -10,22 +10,11 @@ import Container from '@material-ui/core/Container';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-const drawerWidth = 240;
+
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-  },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
   content: {

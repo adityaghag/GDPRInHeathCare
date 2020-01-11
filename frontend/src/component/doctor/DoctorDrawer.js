@@ -16,9 +16,14 @@ const useStyles = makeStyles(theme => ({
         width: drawerWidth,
         flexShrink: 0,
     },
+    appBar: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+    },
     drawerPaper: {
         width: drawerWidth,
     },
+    toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.primary.default,
@@ -27,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Doctor() {
+export default function DoctorDrawer() {
     const classes = useStyles();
 
     return (
