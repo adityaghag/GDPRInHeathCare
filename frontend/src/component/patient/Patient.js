@@ -75,10 +75,7 @@ export default function Patient() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Welcome Bimar Aadmi !
-        </Typography>
-        <Typography paragraph>
-         Yahaan apni bimari ka ilaaj kara
+         Welcome !
         </Typography>
       </main>
     </div>
