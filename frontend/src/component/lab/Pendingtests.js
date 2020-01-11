@@ -1,13 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Link} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { MenuList, MenuItem } from '@material-ui/core';
+import LabDrawer from './LabDrawer';
+
 
 const drawerWidth = 240;
 
@@ -48,36 +46,14 @@ export default function Pendingtests() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
-        <MenuList>
-          <MenuItem component={Link} to="/lab">Home</MenuItem>
-      </MenuList>
-      <MenuList>
-          <MenuItem component={Link} to="/pendingtests">Pending Tests</MenuItem>
-      </MenuList>
-      <MenuList>
-          <MenuItem component={Link} to="/testresults">Test Results</MenuItem>
-      </MenuList>
-      <Divider/>
-      <MenuList>
-          <MenuItem component={Link} to="/stafflogin">Logout</MenuItem>
-      </MenuList>
-      </Drawer>
+      <LabDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-         Welcome Doctor Sahab !
+          Welcome Doctor Sahab !
         </Typography>
         <Typography paragraph>
-         Sabko jaadu ki jhappi do
+          Sabko jaadu ki jhappi do
         </Typography>
       </main>
     </div>
