@@ -34,6 +34,7 @@ exports.user_signup = (req, res, next) => {
               password: hash,
               insuranceId: req.body.insurancenum,
               birthDate: req.body.birthDate,
+              userType: req.body.userType,
               userId: "PI" + new Date().valueOf()
             });
             user
