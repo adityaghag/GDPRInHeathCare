@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import './Login.css';
-import {useState} from 'react';
+import { useState } from 'react';
 
 
 
@@ -54,17 +54,17 @@ function submitForm(form) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
-  }).then(res => {
-    console.log(res)
-  });
+  }).then(response => {
+    return response.json()
+  }).then(res => console.log(res));
 }
 
 export default function SignInSide() {
   const classes = useStyles();
 
   const [form, setState] = useState({
-    email:'',
-    password:''
+    email: '',
+    password: ''
   });
 
   const printValues = e => {
