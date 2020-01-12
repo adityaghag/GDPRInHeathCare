@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 exports.user_signup = (req, res, next) => {
-  console.log("Inside new user user_signupuser_signupuser_signup ")
+  console.log("Inside new user user_signupuser_signupuser_signup ", req.body)
 
   User.find({ email: req.body.email })
     .exec()
@@ -16,6 +16,7 @@ exports.user_signup = (req, res, next) => {
         });
       } else {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
+          console.log(req.body.password)
           if (err) {
             return res.status(500).json({
               error: err
@@ -25,14 +26,14 @@ exports.user_signup = (req, res, next) => {
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
-              firstName:req.body.firstName,
-              lastName:req.body.lastName,
-              address:req.body.address,
-              gender:req.body.gender,
-              mobile:req.body.phonenum,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              address: req.body.address,
+              gender: req.body.gender,
+              mobile: req.body.phonenum,
               password: hash,
-              insuranceId:req.body.insurancenum,
-              birthDate:req.body.birthDate,
+              insuranceId: req.body.insurancenum,
+              birthDate: req.body.birthDate,
               userId: "PI" + new Date().valueOf()
             });
             user
@@ -117,107 +118,107 @@ exports.user_delete = (req, res, next) => {
 
 //////////
 
-  exports.paitient_get_all = (req, res, next) => {
-    User.find({
-        userType:'Patient'
-    })
+exports.paitient_get_all = (req, res, next) => {
+  User.find({
+    userType: 'Patient'
+  })
     //   .select("name price _id productImage")
-      .exec()
-      .then(docs => {
-        const response = {
-          count: docs.length,
-          products: docs
-        };
-        //   if (docs.length >= 0) {
-        res.status(200).json(response);
-        //   } else {
-        //       res.status(404).json({
-        //           message: 'No entries found'
-        //       });
-        //   }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
+    .exec()
+    .then(docs => {
+      const response = {
+        count: docs.length,
+        products: docs
+      };
+      //   if (docs.length >= 0) {
+      res.status(200).json(response);
+      //   } else {
+      //       res.status(404).json({
+      //           message: 'No entries found'
+      //       });
+      //   }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       });
-  };
+    });
+};
 
-  exports.doctors_get_all = (req, res, next) => {
-    User.find({
-        userType:'Doctor'
+exports.doctors_get_all = (req, res, next) => {
+  User.find({
+    userType: 'Doctor'
+  })
+    //   .select("name price _id productImage")
+    .exec()
+    .then(docs => {
+      const response = {
+        count: docs.length,
+        products: docs
+      };
+      //   if (docs.length >= 0) {
+      res.status(200).json(response);
+      //   } else {
+      //       res.status(404).json({
+      //           message: 'No entries found'
+      //       });
+      //   }
     })
-    //   .select("name price _id productImage")
-      .exec()
-      .then(docs => {
-        const response = {
-          count: docs.length,
-          products: docs
-        };
-        //   if (docs.length >= 0) {
-        res.status(200).json(response);
-        //   } else {
-        //       res.status(404).json({
-        //           message: 'No entries found'
-        //       });
-        //   }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       });
-  };
-  
-  exports.get_patients_details = (req, res, next) => {
-    const id = req.params.insuranceId;
-    User.findById(id)
+    });
+};
+
+exports.get_patients_details = (req, res, next) => {
+  const id = req.params.insuranceId;
+  User.findById(id)
     //   .select("name price _id productImage")
-      .exec()
-      .then(doc => {
-        console.log("From database", doc);
-        if (doc) {
-          res.status(200).json({
-            product: doc
-          });
-        } else {
-          res
-            .status(404)
-            .json({ message: "No valid entry found for provided ID" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
-  };
-  
-  exports.update_patients_profile = (req, res, next) => {
-    const id = req.params.productId;
-    const updateOps = {};
-    for (const ops of req.body) {
-      updateOps[ops.propName] = ops.value;
-    }
-    User.update({ _id: id }, { $set: updateOps })
-      .exec()
-      .then(result => {
+    .exec()
+    .then(doc => {
+      console.log("From database", doc);
+      if (doc) {
         res.status(200).json({
-          message: "Product updated",
-          request: {
-            type: "GET",
-            url: "http://localhost:3000/products/" + id
-          }
+          product: doc
         });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
-  };
-  
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
 
-  
+exports.update_patients_profile = (req, res, next) => {
+  const id = req.params.productId;
+  const updateOps = {};
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+  User.update({ _id: id }, { $set: updateOps })
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "Product updated",
+        request: {
+          type: "GET",
+          url: "http://localhost:3000/products/" + id
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
+
+

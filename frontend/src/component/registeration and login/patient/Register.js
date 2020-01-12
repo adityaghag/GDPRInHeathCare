@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {DatePicker,  MuiPickersUtilsProvider} from '@material-ui/pickers';
+import React, { useState } from 'react';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -17,6 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,16 +40,48 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function submitForm(form) {
+  fetch("http://localhost:3001/user/signup", {
+    method: 'post',
+    body: JSON.stringify(form),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    console.log(res)
+  });
+
+  console.log(form)
+}
 
 
 export default function Register() {
   const classes = useStyles();
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [value, setValue] = React.useState('female');
 
-  const handleChange = event => {
-    setValue(event.target.value);
+  const [form, setState] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: '',
+    gender: 'female',
+    phonenum: '',
+    insurancenum: '',
+    password: '',
+    birthDate: new Date()
+  });
+  const printValues = e => {
+    e.preventDefault();
+    submitForm(form)
   };
+
+  const updateField = e => {
+    setState({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,7 +93,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Registration
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={printValues} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -70,6 +103,8 @@ export default function Register() {
                 required
                 fullWidth
                 id="firstName"
+                value={form.firstName}
+                onChange={updateField}
                 label="First Name"
                 autoFocus
               />
@@ -82,22 +117,25 @@ export default function Register() {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                value={form.lastName}
+                onChange={updateField}
                 autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-        disableFuture
-        openTo="year"
-        required
-        format="dd/MM/yyyy"
-        label="Date of birth"
-        views={["year", "month", "date"]}
-        value={selectedDate}
-        onChange={handleDateChange}
-      />
-            </MuiPickersUtilsProvider>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <DatePicker
+                  disableFuture
+                  openTo="year"
+                  required
+                  format="dd/MM/yyyy"
+                  label="Date of birth"
+                  views={["year", "month", "date"]}
+                  value={form.birthDate}
+                  onChange={updateField}
+                  name='birthDate'
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -108,6 +146,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={form.email}
+                onChange={updateField}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,35 +158,39 @@ export default function Register() {
                 label="Insurance Number"
                 name="insurancenum"
                 autoComplete="insurancenum"
+                value={form.insurancenum}
+                onChange={updateField}
               />
             </Grid>
             <Grid item xs={1}>
-            <FormLabel component="legend">Gender</FormLabel>
-        <RadioGroup aria-label="gender" name="gender2" value={value} onChange={handleChange} required>
-          <FormControlLabel
-            value="female"
-            control={<Radio color="primary" />}
-            label="Female"
-          />
-          <FormControlLabel
-            value="male"
-            control={<Radio color="primary" />}
-            label="Male"
-          />
-          <FormControlLabel
-            value="other"
-            control={<Radio color="primary" />}
-            label="Other"
-          />
-        </RadioGroup>
-        </Grid>
-        <Grid item xs={12}>
+              <FormLabel component="legend">Gender</FormLabel>
+              <RadioGroup aria-label="gender" name="gender" value={form.gender} onChange={updateField} required>
+                <FormControlLabel
+                  value="female"
+                  control={<Radio color="primary" />}
+                  label="Female"
+                />
+                <FormControlLabel
+                  value="male"
+                  control={<Radio color="primary" />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="other"
+                  control={<Radio color="primary" />}
+                  label="Other"
+                />
+              </RadioGroup>
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 fullWidth
                 id="phonenum"
                 label="Phone Number"
                 name="phonenum"
+                value={form.phonenum}
+                onChange={updateField}
                 autoComplete="phonenum"
               />
             </Grid>
@@ -159,6 +203,8 @@ export default function Register() {
                 id="address"
                 label="Address"
                 name="address"
+                value={form.address}
+                onChange={updateField}
                 autoComplete="address"
               />
             </Grid>
@@ -170,6 +216,8 @@ export default function Register() {
                 name="password"
                 label="Password"
                 type="password"
+                value={form.password}
+                onChange={updateField}
                 id="password"
                 autoComplete="current-password"
               />
@@ -199,7 +247,7 @@ export default function Register() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              Already registered with HSRW, 
+              Already registered with HSRW,
               <Link to="/login" variant="body2">
                 Login here
               </Link>

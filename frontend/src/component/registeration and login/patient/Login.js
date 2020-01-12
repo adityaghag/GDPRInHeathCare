@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: grey[900],
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -94,7 +94,7 @@ export default function SignInSide() {
             <Grid container>
 
               <Grid item>
-              Not registered with the hospital ?, <Link to="/register">Register here</Link>
+                Not registered with the hospital ?, <Link to="/register">Register here</Link>
               </Grid>
             </Grid>
           </form>
