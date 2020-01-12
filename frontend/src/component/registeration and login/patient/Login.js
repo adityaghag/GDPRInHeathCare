@@ -11,7 +11,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import './Login.css';
+import { useState } from 'react';
 
+//TODO Kapil please redirect the patient after success login OR show error message when login faild
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: grey[900],
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -44,9 +46,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function submitForm(form) {
+  fetch("http://localhost:3001/user/login", {
+    method: 'post',
+    body: JSON.stringify(form),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
+    return response.json()
+  }).then(res => console.log(res));
+}
 
 export default function SignInSide() {
   const classes = useStyles();
+
+  const [form, setState] = useState({
+    email: '',
+    password: ''
+  });
+
+  const printValues = e => {
+    e.preventDefault();
+    submitForm(form)
+  };
+
+  const updateField = e => {
+    setState({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -60,16 +91,18 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={printValues} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="loginid"
+              id="loginId"
               label="Login ID"
-              name="loginid"
+              name="email"
               autoComplete="loginid"
+              value={form.email}
+              onChange={updateField}
               autoFocus
             />
             <TextField
@@ -81,6 +114,8 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={form.password}
+              onChange={updateField}
               autoComplete="current-password"
             />
             <Button
@@ -94,7 +129,7 @@ export default function SignInSide() {
             <Grid container>
 
               <Grid item>
-              Not registered with the hospital ?, <Link to="/register">Register here</Link>
+                Not registered with the hospital ?, <Link to="/register">Register here</Link>
               </Grid>
             </Grid>
           </form>

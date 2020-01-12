@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import { useState } from 'react';
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,8 +36,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function submitForm(form) {
+  fetch("http://localhost:3001/user/login", {
+    method: 'post',
+    body: JSON.stringify(form),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
+    return response.json()
+  }).then(res => console.log(res));
+}
+
 export default function Stafflogin() {
   const classes = useStyles();
+
+  const [form, setState] = useState({
+    email: '',
+    password: ''
+  });
+
+  const printValues = e => {
+    e.preventDefault();
+    submitForm(form)
+  };
+
+  const updateField = e => {
+    setState({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -65,7 +95,9 @@ export default function Stafflogin() {
             fullWidth
             id="loginid"
             label="Login ID"
-            name="loginid"
+            name="email"
+            value={form.email}
+            onChange={updateField}
             autoComplete="loginid"
             autoFocus
           />
@@ -78,6 +110,8 @@ export default function Stafflogin() {
             label="Password"
             type="password"
             id="password"
+            value={form.password}
+            onChange={updateField}
             autoComplete="current-password"
           />
           <Button

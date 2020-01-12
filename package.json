@@ -10,17 +10,20 @@
   "author": "aditya",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "i": "^0.3.6",
     "jsonwebtoken": "^8.5.1",
+    "mammoth": "^1.4.9",
     "moment": "^2.24.0",
     "mongoose": "^5.7.13",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "npm": "^6.13.4"
+    "npm": "^6.13.4",
+    "redact-pii": "^3.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.1"

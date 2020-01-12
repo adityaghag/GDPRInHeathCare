@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react';
 
 
 const drawerWidth = 240;
@@ -35,8 +36,42 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+function submitForm(form) {
+  fetch("http://localhost:3001/user/signup", {
+    method: 'post',
+    body: JSON.stringify(form),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    //TODO Kapli please show sucess message after adding new Doctor 
+    console.log(res)
+  });
+
+  console.log(form)
+}
+
+
 export default function Addlab() {
   const classes = useStyles();
+
+  const [form, setState] = useState({
+    email: '',
+    password: '',
+    userType: 'Lab'
+  });
+  const printValues = e => {
+    e.preventDefault();
+    submitForm(form)
+  };
+
+  const updateField = e => {
+    setState({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
   return (
     <div className={classes.root}>
@@ -59,7 +94,9 @@ export default function Addlab() {
                     fullWidth
                     id="loginId"
                     label="LoginId"
-                    name="loginId"
+                    name="email"
+                    value={form.email}
+                    onChange={updateField}
                     autoComplete="loginId"
                   />
                 </Grid>
@@ -71,6 +108,8 @@ export default function Addlab() {
                     name="password"
                     label="Password"
                     type="password"
+                    value={form.password}
+                    onChange={updateField}
                     id="password"
                     autoComplete="current-password"
                   />

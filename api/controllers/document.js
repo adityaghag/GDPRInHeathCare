@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
+const { SyncRedactor } = require('redact-pii');
+const redactor = new SyncRedactor();
+var fs = require('fs');
+var mammoth = require("mammoth");
 
 const Document = require("../models/document");
 
 exports.getAllDocumentsOfPatient = (req, res, next) => {
-    Document.find({
+  Document.find({
         patientId:req.patientId
     })
       .exec()
@@ -29,7 +33,7 @@ exports.getAllDocumentsOfPatient = (req, res, next) => {
   };
 
 exports.getAllDocumentsOfDoctors = (req, res, next) => { 
-    Document.find({
+  Document.find({
       doctorId:req.doctorId
     })
       .exec()
@@ -53,31 +57,6 @@ exports.getAllDocumentsOfDoctors = (req, res, next) => {
         });
       });
   };
-
-exports.uploadDocuments = (req, res, next) => { 
-  const document = new Document({
-    _id: new mongoose.Types.ObjectId(),
-    patientId: req.patientId,
-    doctorId: req.doctorId,
-    labId: req.labId,
-    documents:req.documents,
-    comments:req.comments
-  });
-  document
-    .save()
-    .then(result => {
-      console.log(result);
-      res.status(201).json({
-        message: "User created"
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-  };
   
 exports.updateDocument = (req, res, next) => {
     const id = req.body.documentId;
@@ -98,6 +77,41 @@ exports.updateDocument = (req, res, next) => {
           error: err
         });
       });
+  };
+
+exports.uploadDocument = (req, res, next) => {
+  console.log("--------",req.file)
+  mammoth.extractRawText({path: req.file.path})
+    .then(function(result){
+        var text = result.value; // The raw text 
+        console.log(text);
+        const redactedText = redactor.redact(text);
+        console.log(redactedText);
+        fs.unlink(req.file.path,function(){
+        })
+        fs.writeFile('./uploads/'+ req.file.filename + '', redactedText, ()=>{});
+        
+      const document = new Document({
+      _id: new mongoose.Types.ObjectId(),
+      comments: req.body.comment,
+      fileName: req.body.fileName,
+      documentFile: req.file.path
+      });
+      document
+      .save()
+      .then(result => {
+        console.log(result);
+        res.status(201).json({
+          message: "File uploaded successfully"
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+    })
   };
   
 
