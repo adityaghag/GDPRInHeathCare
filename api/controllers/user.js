@@ -22,6 +22,12 @@ exports.user_signup = (req, res, next) => {
               error: err
             });
           } else {
+            var uid;
+            if(req.body.userType==='Patient'){
+              uid="PI" + new Date().valueOf();
+            }else{
+              uid="DI" + new Date().valueOf();
+            }
             console.log("Inside new user block ")
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
@@ -35,7 +41,7 @@ exports.user_signup = (req, res, next) => {
               insuranceId: req.body.insurancenum,
               birthDate: req.body.birthDate,
               userType: req.body.userType,
-              userId: "PI" + new Date().valueOf()
+              userId:uid
             });
             user
               .save()
