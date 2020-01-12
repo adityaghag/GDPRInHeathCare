@@ -40,18 +40,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function submitForm(form) {
-  fetch("http://localhost:3001/user/signup", {
-    method: 'post',
-    body: JSON.stringify(form),
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }).then(res => {
-    //TODO : Kapil please redirect the user after the registration.
-    console.log(res)
-  });
+function submitForm(form, errors) {
+  if (!errors.firstName && !errors.lastName && !errors.email && !errors.password) {
+    fetch("http://localhost:3001/user/signup", {
+      method: 'post',
+      body: JSON.stringify(form),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      //TODO : Kapil please redirect the user after the registration.
+      console.log(res)
+    });
+  }
+  else {
+    //TODO show error message
+    console.log('error')
+  }
 
 }
 
@@ -80,7 +86,7 @@ export default function Register() {
   });
   const printValues = e => {
     e.preventDefault();
-    submitForm(form)
+    submitForm(form, errors)
   };
 
   const updateField = e => {
@@ -97,6 +103,12 @@ export default function Register() {
           [e.target.name]: true
         });
       }
+      else {
+        setError({
+          ...errors,
+          [e.target.name]: false
+        });
+      }
     }
     else if (e.target.name === 'lastName') {
       if (form.lastName === '') {
@@ -105,14 +117,27 @@ export default function Register() {
           [e.target.name]: true
         });
       }
+      else {
+        setError({
+          ...errors,
+          [e.target.name]: false
+        });
+      }
     }
     else if (e.target.name === 'email') {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      console.log(re.test(String(form.email).toLowerCase()))
-      if (form.email === '') {
+      // eslint-disable-next-line 
+      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let isEmail = re.test(String(form.email).toLowerCase())
+      if (form.email === '' || !isEmail) {
         setError({
           ...errors,
           [e.target.name]: true
+        });
+      }
+      else {
+        setError({
+          ...errors,
+          [e.target.name]: false
         });
       }
     }
@@ -121,6 +146,12 @@ export default function Register() {
         setError({
           ...errors,
           [e.target.name]: true
+        });
+      }
+      else {
+        setError({
+          ...errors,
+          [e.target.name]: false
         });
       }
     }
