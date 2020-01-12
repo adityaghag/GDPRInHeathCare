@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema({
     userType: {
         type: String,
         default: "Patient",
-        enum: ['Patient', 'Doctor'],
+        enum: ['Patient', 'Doctor','Lab'],
         required: true
     },
     doctorsComment: {
