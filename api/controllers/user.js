@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
 exports.user_signup = (req, res, next) => {
+  console.log("Inside new user user_signupuser_signupuser_signup ")
+
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
@@ -19,10 +21,18 @@ exports.user_signup = (req, res, next) => {
               error: err
             });
           } else {
+            console.log("Inside new user block ")
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
+              firstName:req.body.firstName,
+              lastName:req.body.lastName,
+              address:req.body.address,
+              gender:req.body.gender,
+              mobile:req.body.phonenum,
               password: hash,
+              insuranceId:req.body.insurancenum,
+              birthDate:req.body.birthDate,
               userId: "PI" + new Date().valueOf()
             });
             user
