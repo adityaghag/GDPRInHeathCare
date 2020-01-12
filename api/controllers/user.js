@@ -25,8 +25,10 @@ exports.user_signup = (req, res, next) => {
             var uid;
             if(req.body.userType==='Patient'){
               uid="PI" + new Date().valueOf();
-            }else{
+            }else if(req.body.userType==='Doctor'){
               uid="DI" + new Date().valueOf();
+            }else{
+              uid="LI" + new Date().valueOf();
             }
             console.log("Inside new user block ")
             const user = new User({
