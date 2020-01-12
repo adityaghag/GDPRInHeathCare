@@ -34,6 +34,7 @@ function submitForm(form) {
       'Content-Type': 'application/json'
     }
   }).then(res => {
+    //TODO Kapli please show sucess message after adding new Doctor 
     console.log(res)
   });
 

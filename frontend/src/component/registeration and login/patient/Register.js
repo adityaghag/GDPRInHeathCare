@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-
+//TODO Kapil please do some validation on the registration form
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -49,10 +49,10 @@ function submitForm(form) {
       'Content-Type': 'application/json'
     }
   }).then(res => {
+    //TODO : Kapil please redirect the user after the registration.
     console.log(res)
   });
 
-  console.log(form)
 }
 
 
