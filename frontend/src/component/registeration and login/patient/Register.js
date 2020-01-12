@@ -66,8 +66,6 @@ function submitForm(form, errors) {
 }
 
 
-
-
 export default function Register() {
   const classes = useStyles();
 
@@ -80,6 +78,8 @@ export default function Register() {
     phonenum: '',
     insurancenum: '',
     password: '',
+    terms: false,
+    consent: false,
     birthDate: new Date()
   });
   const [errors, setError] = useState({
@@ -92,6 +92,20 @@ export default function Register() {
     e.preventDefault();
     submitForm(form, errors)
   };
+  const handleCheckBox = (e) => {
+    if (e.target.value === 'terms') {
+      setState({
+        ...form,
+        terms: !form.terms
+      });
+
+    } else {
+      setState({
+        ...form,
+        consent: !form.consent
+      });
+    }
+  }
 
   const updateField = e => {
     setState({
@@ -310,18 +324,19 @@ export default function Register() {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={<Checkbox checked={form.consent} value="consent" color="primary" />}
                 label="Consent"
-                required
+                checked={form.consent}
+                onChange={handleCheckBox}
                 className={classes.labels}
               />
               <Consent></Consent>
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={<Checkbox checked={form.terms} value="terms" color="primary" />}
                 label="Terms & Conditions"
-                required
+                onChange={handleCheckBox}
                 className={classes.labels}
               />
               <Terms></Terms>
@@ -332,10 +347,11 @@ export default function Register() {
             fullWidth
             variant="outlined"
             className={classes.submit}
+            disabled={!(form.consent && form.terms)}
           >
             Register
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justify="flex-start">
             <Grid item>
               Already registered with HSRW,
               <Link to="/login" variant="body2">
@@ -345,6 +361,6 @@ export default function Register() {
           </Grid>
         </form>
       </div>
-    </Container>
+    </Container >
   );
 }
