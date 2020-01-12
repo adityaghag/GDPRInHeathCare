@@ -79,15 +79,15 @@ export default function Stafflogin() {
         <Typography component="h1" variant="h5">
           HSRW Login
         </Typography>
-        <form className={classes.form} noValidate>
-        <Grid item xs={8}>
-        <InputLabel id="label">Role</InputLabel>
-        <Select labelId="label" id="select" value="Admin">
-            <MenuItem value="Admin">Admin</MenuItem>
-            <MenuItem value="Doctor">Doctor</MenuItem>
-            <MenuItem value="Lab">Lab</MenuItem>
-        </Select>
-        </Grid>
+        <form onSubmit={printValues} className={classes.form} noValidate>
+          <Grid item xs={8}>
+            <InputLabel id="label">Role</InputLabel>
+            <Select labelId="label" id="select" value="Admin">
+              <MenuItem value="Admin">Admin</MenuItem>
+              <MenuItem value="Doctor">Doctor</MenuItem>
+              <MenuItem value="Lab">Lab</MenuItem>
+            </Select>
+          </Grid>
           <TextField
             variant="outlined"
             margin="normal"

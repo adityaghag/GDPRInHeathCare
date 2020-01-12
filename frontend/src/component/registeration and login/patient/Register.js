@@ -56,6 +56,8 @@ function submitForm(form) {
 }
 
 
+
+
 export default function Register() {
   const classes = useStyles();
 
@@ -70,6 +72,12 @@ export default function Register() {
     password: '',
     birthDate: new Date()
   });
+  const [errors, setError] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false
+  });
   const printValues = e => {
     e.preventDefault();
     submitForm(form)
@@ -81,7 +89,42 @@ export default function Register() {
       [e.target.name]: e.target.value
     });
   };
-
+  const onBlurVlidation = e => {
+    if (e.target.name === 'firstName') {
+      if (form.firstName === '') {
+        setError({
+          ...errors,
+          [e.target.name]: true
+        });
+      }
+    }
+    else if (e.target.name === 'lastName') {
+      if (form.lastName === '') {
+        setError({
+          ...errors,
+          [e.target.name]: true
+        });
+      }
+    }
+    else if (e.target.name === 'email') {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      console.log(re.test(String(form.email).toLowerCase()))
+      if (form.email === '') {
+        setError({
+          ...errors,
+          [e.target.name]: true
+        });
+      }
+    }
+    else {
+      if (form.password === '') {
+        setError({
+          ...errors,
+          [e.target.name]: true
+        });
+      }
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -102,6 +145,8 @@ export default function Register() {
                 variant="outlined"
                 required
                 fullWidth
+                onBlur={onBlurVlidation}
+                error={errors.firstName}
                 id="firstName"
                 value={form.firstName}
                 onChange={updateField}
@@ -118,6 +163,8 @@ export default function Register() {
                 label="Last Name"
                 name="lastName"
                 value={form.lastName}
+                error={errors.lastName}
+                onBlur={onBlurVlidation}
                 onChange={updateField}
                 autoComplete="lname"
               />
@@ -147,6 +194,8 @@ export default function Register() {
                 name="email"
                 autoComplete="email"
                 value={form.email}
+                error={errors.email}
+                onBlur={onBlurVlidation}
                 onChange={updateField}
               />
             </Grid>
@@ -219,6 +268,8 @@ export default function Register() {
                 value={form.password}
                 onChange={updateField}
                 id="password"
+                error={errors.password}
+                onBlur={onBlurVlidation}
                 autoComplete="current-password"
               />
             </Grid>

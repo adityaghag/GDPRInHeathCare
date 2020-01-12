@@ -16,7 +16,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function createCard() {
+  let patients = [
+    { patientId: '1', gender: 'm', age: 20, medicalHistory: 'test1' },
+    { patientId: '2', gender: 'w', age: 25, medicalHistory: 'test2' },
+    { patientId: '3', gender: 'w', age: 23, medicalHistory: 'test3' },
+    { patientId: '4', gender: 'm', age: 29, medicalHistory: 'test4' },
+    { patientId: '5', gender: 'm', age: 50, medicalHistory: 'test5' },
+  ]
 
+  let card = []
+
+  patients.map((item) => {
+    return card.push(<Grid item key={item.patientId} xs={3}><Cards gender={item.gender} age={item.age} medicalHistory={item.medicalHistory} /></Grid>)
+  });
+
+  return card
+}
 
 export default function Patientinfo() {
   const classes = useStyles();

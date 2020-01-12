@@ -85,7 +85,7 @@ export default function Addlab() {
               Add Lab
             </Typography>
             <br />
-            <form className={classes.form} noValidate>
+            <form onSubmit={printValues} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
