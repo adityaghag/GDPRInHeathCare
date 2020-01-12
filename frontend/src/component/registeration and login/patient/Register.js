@@ -17,8 +17,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Consent from './Consent';
+import Terms from './Terms';
 
-//TODO Kapil please do some validation on the registration form
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  labels: {
+    marginBottom: '0px'
+  }
 }));
 
 function submitForm(form, errors) {
@@ -309,14 +313,18 @@ export default function Register() {
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="Consent"
                 required
+                className={classes.labels}
               />
+              <Consent></Consent>
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="Terms & Conditions"
                 required
+                className={classes.labels}
               />
+              <Terms></Terms>
             </Grid>
           </Grid>
           <Button
