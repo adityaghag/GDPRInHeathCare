@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import './Login.css';
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom'
+
 
 //TODO Kapil please redirect the patient after success login OR show error message when login faild
 
@@ -46,23 +48,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function submitForm(form) {
-  fetch("http://localhost:3001/user/login", {
-    method: 'post',
-    body: JSON.stringify(form),
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }).then(response => {
-    return response.json() 
-    <Redirect to="/patient" />
-  }).then(res => console.log(res));
-}
-
 export default function SignInSide() {
   const classes = useStyles();
-
+  const [redirect, setRedirect] = useState(false);
   const [form, setState] = useState({
     email: '',
     password: ''
@@ -70,7 +58,19 @@ export default function SignInSide() {
 
   const printValues = e => {
     e.preventDefault();
-    submitForm(form)
+    fetch("http://localhost:3001/user/login", {
+      method: 'post',
+      body: JSON.stringify(form),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      return response.json()
+    }).then(res => {
+      if (res.token)
+        setRedirect(true)
+    });
   };
 
   const updateField = e => {
@@ -79,63 +79,67 @@ export default function SignInSide() {
       [e.target.name]: e.target.value
     });
   };
-
-  return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <form onSubmit={printValues} className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="loginId"
-              label="Login ID"
-              name="email"
-              autoComplete="loginid"
-              value={form.email}
-              onChange={updateField}
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={form.password}
-              onChange={updateField}
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="outlined"
-              className={classes.submit}
-            >
+  if (redirect) {
+    return < Redirect to="/patient" />;
+  }
+  else {
+    return (
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Login
+          </Typography>
+            <form onSubmit={printValues} className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="loginId"
+                label="Login ID"
+                name="email"
+                autoComplete="loginid"
+                value={form.email}
+                onChange={updateField}
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={form.password}
+                onChange={updateField}
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="outlined"
+                className={classes.submit}
+              >
+                Login
             </Button>
-            <Grid container>
+              <Grid container>
 
-              <Grid item>
-                Not registered with the hospital ?, <Link to="/register">Register here</Link>
+                <Grid item>
+                  Not registered with the hospital ?, <Link to="/register">Register here</Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
