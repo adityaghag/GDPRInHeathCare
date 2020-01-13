@@ -5,8 +5,7 @@ const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     userId: { type: String },
     insuranceId: {
-        type: String,
-        unique: true
+        type: String
     },
     emergencyId: { type: String },
     medicalDesriptionId: { type: Number },
@@ -34,6 +33,7 @@ const userSchema = mongoose.Schema({
         type: String,
         // index: true
     },
+    doctorsCategory:String,
     userType: {
         type: String,
         default: "Patient",

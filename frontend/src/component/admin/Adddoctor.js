@@ -116,9 +116,12 @@ export default function Adddoctor() {
                     <option value="" disabled>
                       Categories
                       </option>
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
+                    <option value='Cardiologis'>Cardiologist</option>
+                    <option value='Neurosurgeon'>Neurosurgeon</option>
+                    <option value='Orthopedcian'>Orthopedcian</option>
+                    <option value='Neurologist'>Neurologist</option>
+                    <option value='Gynecologist'>Gynecologist</option>
+
                   </NativeSelect>
                   <FormHelperText>Categories</FormHelperText>
 

@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 exports.user_signup = (req, res, next) => {
-  console.log("Inside new user user_signupuser_signupuser_signup ", req.body)
-
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
@@ -22,29 +20,48 @@ exports.user_signup = (req, res, next) => {
               error: err
             });
           } else {
-            var uid;
+            let uid;
+            let userData;
             if(req.body.userType==='Patient'){
               uid="PI" + new Date().valueOf();
-            }else if(req.body.userType==='Doctor'){
-              uid="DI" + new Date().valueOf();
-            }else{
-              uid="LI" + new Date().valueOf();
-            }
-            console.log("Inside new user block ")
-            const user = new User({
+              userData={
               _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
+              password: hash,
+              userType: req.body.userType,
+              userId:uid,
               firstName: req.body.firstName,
               lastName: req.body.lastName,
               address: req.body.address,
               gender: req.body.gender,
               mobile: req.body.phonenum,
-              password: hash,
               insuranceId: req.body.insurancenum,
-              birthDate: req.body.birthDate,
-              userType: req.body.userType,
-              userId:uid
-            });
+              birthDate: req.body.birthDate
+              }
+            }else if(req.body.userType==='Doctor'){
+              uid="DI" + new Date().valueOf();
+              userData={
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                userType: req.body.userType,
+                userId:uid,
+                doctorsCategory:req.body.category,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName
+              }
+            }else{
+              uid="LI" + new Date().valueOf();
+              userData={
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                userType: req.body.userType,
+                userId:uid
+              }
+            }
+            console.log("Inside new user block ",userData)
+            const user = new User(userData);
             user
               .save()
               .then(result => {
@@ -93,7 +110,8 @@ exports.user_login = (req, res, next) => {
           );
           return res.status(200).json({
             message: "Auth successful",
-            token: token
+            token: token,
+            userType:user[0].userType
           });
         }
         res.status(401).json({
