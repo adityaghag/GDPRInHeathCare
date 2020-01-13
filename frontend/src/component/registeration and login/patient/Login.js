@@ -56,8 +56,9 @@ function submitForm(form) {
     }
   }).then(response => {
     return response.json() 
-    <Redirect to="/patient" />
   }).then(res => console.log(res));
+
+  
 }
 
 export default function SignInSide() {
