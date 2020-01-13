@@ -6,6 +6,7 @@ import register from './component/registeration and login/patient/Register';
 import stafflogin from './component/registeration and login/staff/Stafflogin';
 import patient from './component/patient/Patient';
 import reportview from './component/patient/Reportview';
+import reportupload from './component/patient/Reportupload';
 import doctor from './component/doctor/Doctor';
 import patientinfo from './component/doctor/Patientinfo';
 import lab from './component/lab/Lab';
@@ -29,6 +30,7 @@ const Routes = () => {
                 <Route path="/stafflogin" component={stafflogin} />
                 <Route path="/patient" component={patient} />
                 <Route path="/reportview" component={reportview} />
+                <Route path="/reportupload" component={reportupload} />
                 <Route path="/doctor" component={doctor} />
                 <Route path="/patientinfo" component={patientinfo} />
                 <Route path="/lab" component={lab} />

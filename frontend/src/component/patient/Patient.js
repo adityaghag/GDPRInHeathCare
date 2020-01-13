@@ -39,45 +39,38 @@ export default function Patient() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            HSRW Patient Dashboard
+    <React.Fragment>
+            <CssBaseline />
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                    <Typography variant="h6" noWrap>
+                        HSRW Patient Dashboard
           </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
-        <MenuList>
-          <MenuItem component={Link} to="/patient">Home</MenuItem>
-      </MenuList>
-      <MenuList>
-          <MenuItem component={Link} to="/booking">Book Appointment</MenuItem>
-      </MenuList>
-      <Divider/>
-      <MenuList>
-          <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
-      </MenuList>
-      <Divider/>
-      <MenuList>
-          <MenuItem component={Link} to="/patient">Logout</MenuItem>
-      </MenuList>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>
-         Welcome !
-        </Typography>
-      </main>
-    </div>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                anchor="left"
+            >
+                <div className={classes.toolbar} />
+                <MenuList>
+                    <MenuItem component={Link} to="/patient">Home</MenuItem>
+                </MenuList>
+                <MenuList>
+                    <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
+                </MenuList>
+                <MenuList>
+                    <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
+                </MenuList>
+                <Divider />
+                <MenuList>
+                    <MenuItem component={Link} to="/login">Logout</MenuItem>
+                </MenuList>
+            </Drawer>
+        </React.Fragment>
   );
 }
