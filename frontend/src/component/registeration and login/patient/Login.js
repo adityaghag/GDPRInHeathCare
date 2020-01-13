@@ -55,7 +55,8 @@ function submitForm(form) {
       'Content-Type': 'application/json'
     }
   }).then(response => {
-    return response.json()
+    return response.json() 
+    <Redirect to="/patient" />
   }).then(res => console.log(res));
 }
 
