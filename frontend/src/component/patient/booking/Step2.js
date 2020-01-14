@@ -30,10 +30,9 @@ export default function Step2() {
     }
 
     const createCard = () => {
-        console.log(docsData)
         let card = []
         docsData.map((item) => {
-            return card.push(<Grid item key={item._id} xs={3}><Cards userType={item.userType} firstName={item.firstName} lastName={item.lastName} /></Grid>)
+            return card.push(<Grid item key={item._id} xs={4}><Cards id={item._id} userType={item.userType} firstName={item.firstName} lastName={item.lastName} /></Grid>)
         });
         return card
     }
