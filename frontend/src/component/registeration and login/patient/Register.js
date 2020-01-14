@@ -10,7 +10,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -44,31 +44,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function submitForm(form, errors) {
-  if (!errors.firstName && !errors.lastName && !errors.email && !errors.password) {
-    fetch("http://localhost:3001/user/signup", {
-      method: 'post',
-      body: JSON.stringify(form),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(res => {
-      //TODO : Kapil please redirect the user after the registration.
-      console.log(res)
-    });
-  }
-  else {
-    //TODO show error message
-    console.log('error')
-  }
-
-}
-
 
 export default function Register() {
   const classes = useStyles();
-
+  const [redirect, setRedirect] = useState(false)
   const [form, setState] = useState({
     firstName: '',
     lastName: '',
@@ -90,7 +69,25 @@ export default function Register() {
   });
   const printValues = e => {
     e.preventDefault();
-    submitForm(form, errors)
+    if (!errors.firstName && !errors.lastName && !errors.email && !errors.password) {
+      fetch("http://localhost:3001/user/signup", {
+        method: 'post',
+        body: JSON.stringify(form),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        //TODO : Kapil please redirect the user after the registration.
+        console.log(res);
+        setRedirect(true)
+      });
+    }
+    else {
+      //TODO show error message
+      console.log('error')
+    }
+
   };
   const handleCheckBox = (e) => {
     if (e.target.value === 'terms') {
@@ -174,193 +171,197 @@ export default function Register() {
       }
     }
   };
-
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Registration
+  if (redirect) {
+    return <Redirect to='login' />
+  }
+  else {
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Registration
         </Typography>
-        <form onSubmit={printValues} className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                onBlur={onBlurVlidation}
-                error={errors.firstName}
-                id="firstName"
-                value={form.firstName}
-                onChange={updateField}
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                value={form.lastName}
-                error={errors.lastName}
-                onBlur={onBlurVlidation}
-                onChange={updateField}
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  disableFuture
-                  openTo="year"
+          <form onSubmit={printValues} className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
                   required
-                  format="dd/MM/yyyy"
-                  label="Date of birth"
-                  views={["year", "month", "date"]}
-                  value={form.birthDate}
+                  fullWidth
+                  onBlur={onBlurVlidation}
+                  error={errors.firstName}
+                  id="firstName"
+                  value={form.firstName}
                   onChange={updateField}
-                  name='birthDate'
+                  label="First Name"
+                  autoFocus
                 />
-              </MuiPickersUtilsProvider>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={form.email}
-                error={errors.email}
-                onBlur={onBlurVlidation}
-                onChange={updateField}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="insurancenum"
-                label="Insurance Number"
-                name="insurancenum"
-                autoComplete="insurancenum"
-                value={form.insurancenum}
-                onChange={updateField}
-              />
-            </Grid>
-            <Grid item xs={1}>
-              <FormLabel component="legend">Gender</FormLabel>
-              <RadioGroup aria-label="gender" name="gender" value={form.gender} onChange={updateField} required>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  value={form.lastName}
+                  error={errors.lastName}
+                  onBlur={onBlurVlidation}
+                  onChange={updateField}
+                  autoComplete="lname"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableFuture
+                    openTo="year"
+                    required
+                    format="dd/MM/yyyy"
+                    label="Date of birth"
+                    views={["year", "month", "date"]}
+                    value={form.birthDate}
+                    onChange={updateField}
+                    name='birthDate'
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={form.email}
+                  error={errors.email}
+                  onBlur={onBlurVlidation}
+                  onChange={updateField}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="insurancenum"
+                  label="Insurance Number"
+                  name="insurancenum"
+                  autoComplete="insurancenum"
+                  value={form.insurancenum}
+                  onChange={updateField}
+                />
+              </Grid>
+              <Grid item xs={1}>
+                <FormLabel component="legend">Gender</FormLabel>
+                <RadioGroup aria-label="gender" name="gender" value={form.gender} onChange={updateField} required>
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio color="primary" />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio color="primary" />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio color="primary" />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="phonenum"
+                  label="Phone Number"
+                  name="phonenum"
+                  value={form.phonenum}
+                  onChange={updateField}
+                  autoComplete="phonenum"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows="4"
+                  id="address"
+                  label="Address"
+                  name="address"
+                  value={form.address}
+                  onChange={updateField}
+                  autoComplete="address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  value={form.password}
+                  onChange={updateField}
+                  id="password"
+                  error={errors.password}
+                  onBlur={onBlurVlidation}
+                  autoComplete="current-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
-                  value="female"
-                  control={<Radio color="primary" />}
-                  label="Female"
+                  control={<Checkbox checked={form.consent} value="consent" color="primary" />}
+                  label="Consent"
+                  checked={form.consent}
+                  onChange={handleCheckBox}
+                  className={classes.labels}
                 />
+                <Consent></Consent>
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
-                  value="male"
-                  control={<Radio color="primary" />}
-                  label="Male"
+                  control={<Checkbox checked={form.terms} value="terms" color="primary" />}
+                  label="Terms & Conditions"
+                  onChange={handleCheckBox}
+                  className={classes.labels}
                 />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio color="primary" />}
-                  label="Other"
-                />
-              </RadioGroup>
+                <Terms></Terms>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="phonenum"
-                label="Phone Number"
-                name="phonenum"
-                value={form.phonenum}
-                onChange={updateField}
-                autoComplete="phonenum"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                multiline
-                rows="4"
-                id="address"
-                label="Address"
-                name="address"
-                value={form.address}
-                onChange={updateField}
-                autoComplete="address"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                value={form.password}
-                onChange={updateField}
-                id="password"
-                error={errors.password}
-                onBlur={onBlurVlidation}
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox checked={form.consent} value="consent" color="primary" />}
-                label="Consent"
-                checked={form.consent}
-                onChange={handleCheckBox}
-                className={classes.labels}
-              />
-              <Consent></Consent>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox checked={form.terms} value="terms" color="primary" />}
-                label="Terms & Conditions"
-                onChange={handleCheckBox}
-                className={classes.labels}
-              />
-              <Terms></Terms>
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            className={classes.submit}
-            disabled={!(form.consent && form.terms)}
-          >
-            Register
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              className={classes.submit}
+              disabled={!(form.consent && form.terms)}
+            >
+              Register
           </Button>
-          <Grid container justify="flex-start">
-            <Grid item>
-              Already registered with HSRW,
+            <Grid container justify="flex-start">
+              <Grid item>
+                Already registered with HSRW,
               <Link to="/login" variant="body2">
-                Login here
+                  Login here
               </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container >
-  );
+          </form>
+        </div>
+      </Container >
+    );
+  }
 }
