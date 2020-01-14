@@ -177,7 +177,6 @@ exports.paitient_get_all = (req, res, next) => {
 
 exports.doctors_by_cat = (req, res, next) => {
   console.log("Docssss--sdadasdad----",req.body)
-
   User.find({
     userType: 'Doctor',
     doctorsCategory:req.body.docCat

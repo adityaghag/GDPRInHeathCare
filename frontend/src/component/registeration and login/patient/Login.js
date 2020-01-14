@@ -68,6 +68,7 @@ export default function SignInSide() {
     }).then(response => {
       return response.json()
     }).then(res => {
+      localStorage.setItem('userData',res)
       if (res.token)
         setRedirect(true)
     });

@@ -28,16 +28,16 @@ const useStyles = makeStyles({
 export default function Step2() {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
+    const [docsData, setdocsData] = useState({});
 
-    useEffect(() => {
+    const fetchData = async ()=>{
         let cat={
             docCat:localStorage.getItem('docCat')
         } 
         console.log("cattt",cat)
         fetch("http://localhost:3001/user/getDocByCat", {
           method: 'post',
-          body: cat,
-          mode: 'no-cors',
+          body: JSON.stringify(cat),
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -45,8 +45,14 @@ export default function Step2() {
         }).then(response => {
           return response.json();
         }).then(res => {
+            setdocsData(res)
         });
-      });
+    }
+   
+    useEffect(() => {
+        fetchData();
+      },[]);
+
 
     return (
         <Card className={classes.card}>
