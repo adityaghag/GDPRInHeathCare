@@ -5,15 +5,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function Booking() {
+export default function Step1({ parentCallback }) {
     const [value, setValue] = React.useState('');
-    // localStorage.setItem('docCat','Cardiologist')
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        parentCallback(newValue);
         localStorage.setItem('docCat', newValue)
     };
-    console.log(value)
+
     return (
         <React.Fragment>
             <FormControl component="fieldset" >

@@ -46,9 +46,13 @@ const useStyles = makeStyles(theme => ({
 export default function Booking() {
   const [step, setStep] = useState(1);
   const classes = useStyles();
+  const [enable, enableBtn] = useState(false);
+  const callback = (cat) => {
+    enableBtn(true)
+  }
 
   return (
-    <div className={classes.root}>
+    < div className={classes.root} >
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -90,7 +94,7 @@ export default function Booking() {
           spacing={2}
         >
           {step === 1 ? (
-            <Step1></Step1>) :
+            <Step1 parentCallback={callback}></Step1>) :
             step === 2 ? (
               <Step2></Step2>) :
               <Step3></Step3>
@@ -105,11 +109,11 @@ export default function Booking() {
         >
           <Grid item xs>
             {(step !== 1 && step !== 3) ? (
-              <Button variant="contained" color="primary" onClick={() => setStep(step - 1)} className={classes.Button}>Back</Button>) :
+              <Button disabled={!enable} variant="contained" color="primary" onClick={() => { setStep(step - 1); enableBtn(false) }} className={classes.Button}>Back</Button>) :
               ''
             }
             {step !== 3 ? (
-              <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Next</Button>) :
+              <Button disabled={!enable} variant="contained" color="primary" onClick={() => { setStep(step + 1) }}>Next</Button>) :
               ''
             }
             {step === 3 ? (
@@ -122,6 +126,6 @@ export default function Booking() {
           </Grid>
         </Grid>
       </main>
-    </div>
+    </div >
   );
 }
