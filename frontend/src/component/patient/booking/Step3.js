@@ -15,7 +15,7 @@ export default function Step3(props) {
                 <Card >
                     <CardContent>
                         <Typography align='center' color="textSecondary" gutterBottom>Your Appointment</Typography>
-                        <Typography align='center' color="textSecondary" gutterBottom>At: {day} <span> </span>{hour}</Typography>
+                        <Typography align='center' color="textSecondary" gutterBottom>On: {day} <span>, At: </span>{hour}</Typography>
                         <Typography align='center' color="textSecondary" gutterBottom>By Dr.{doctor}</Typography>
                     </CardContent>
                 </Card>
