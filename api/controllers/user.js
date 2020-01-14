@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 exports.user_signup = (req, res, next) => {
+  console.log("-----########",req.body)
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
@@ -22,21 +23,14 @@ exports.user_signup = (req, res, next) => {
           } else {
             let uid;
             let userData;
-            if(req.body.userType==='Patient'){
-              uid="PI" + new Date().valueOf();
+            if(req.body.userType==='Lab'){
+              uid="LI" + new Date().valueOf();
               userData={
-              _id: new mongoose.Types.ObjectId(),
-              email: req.body.email,
-              password: hash,
-              userType: req.body.userType,
-              userId:uid,
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-              address: req.body.address,
-              gender: req.body.gender,
-              mobile: req.body.phonenum,
-              insuranceId: req.body.insurancenum,
-              birthDate: req.body.birthDate
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                userType: req.body.userType,
+                userId:uid
               }
             }else if(req.body.userType==='Doctor'){
               uid="DI" + new Date().valueOf();
@@ -51,13 +45,21 @@ exports.user_signup = (req, res, next) => {
                 lastName: req.body.lastName
               }
             }else{
-              uid="LI" + new Date().valueOf();
+              console.log("-----##Patient ######")
+              uid="PI" + new Date().valueOf();
               userData={
-                _id: new mongoose.Types.ObjectId(),
-                email: req.body.email,
-                password: hash,
-                userType: req.body.userType,
-                userId:uid
+              _id: new mongoose.Types.ObjectId(),
+              email: req.body.email,
+              password: hash,
+              userType: req.body.userType,
+              userId:uid,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              address: req.body.address,
+              gender: req.body.gender,
+              mobile: req.body.phonenum,
+              insuranceId: req.body.insurancenum,
+              birthDate: req.body.birthDate
               }
             }
             console.log("Inside new user block ",userData)
@@ -111,7 +113,8 @@ exports.user_login = (req, res, next) => {
           return res.status(200).json({
             message: "Auth successful",
             token: token,
-            userType:user[0].userType
+            userType:user[0].userType,
+            userId:user[0]._id
           });
         }
         res.status(401).json({
@@ -172,24 +175,27 @@ exports.paitient_get_all = (req, res, next) => {
     });
 };
 
-exports.doctors_get_all = (req, res, next) => {
+exports.doctors_by_cat = (req, res, next) => {
+  console.log("Docssss--sdadasdad----",req.body)
+
   User.find({
-    userType: 'Doctor'
+    userType: 'Doctor',
+    doctorsCategory:req.body.docCat
   })
-    //   .select("name price _id productImage")
     .exec()
     .then(docs => {
+      console.log("Docssss------",docs)
       const response = {
         count: docs.length,
-        products: docs
+        data: docs
       };
-      //   if (docs.length >= 0) {
-      res.status(200).json(response);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
+        if (docs.length >= 0) {
+        res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
     })
     .catch(err => {
       console.log(err);

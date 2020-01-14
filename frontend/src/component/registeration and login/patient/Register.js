@@ -219,7 +219,20 @@ export default function Register() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <TextField
+      id="date"
+      label="Birthday"
+      type="date"
+      defaultValue="2017-05-24"
+      className={classes.textField}
+      InputLabelProps={{
+      shrink: true,
+      }}
+      value={form.birthDate}
+      onChange={updateField}
+      name='birthDate'
+      />
+                {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <DatePicker
                     disableFuture
                     openTo="year"
@@ -231,7 +244,7 @@ export default function Register() {
                     onChange={updateField}
                     name='birthDate'
                   />
-                </MuiPickersUtilsProvider>
+                </MuiPickersUtilsProvider> */}
               </Grid>
               <Grid item xs={12}>
                 <TextField

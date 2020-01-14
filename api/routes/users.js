@@ -40,7 +40,9 @@ router.delete("/:userId", checkAuth, UserController.user_delete);
 
 router.get("/", UserController.paitient_get_all);
 
-router.get("/", UserController.doctors_get_all);
+// router.get("/", UserController.doctors_get_all);
+
+router.post("/getDocByCat", UserController.doctors_by_cat);
 
 // router.post("/", checkAuth, upload.single('productImage'), UserController.products_create_product);
 

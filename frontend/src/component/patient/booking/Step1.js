@@ -7,9 +7,11 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 export default function Booking() {
     const [value, setValue] = React.useState('Cardiologist');
+    // localStorage.setItem('docCat','Cardiologist')
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        localStorage.setItem('docCat',newValue)
     };
     return (
         <React.Fragment>

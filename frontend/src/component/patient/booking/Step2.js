@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -23,9 +23,30 @@ const useStyles = makeStyles({
     },
 });
 
+
+
 export default function Step2() {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
+
+    useEffect(() => {
+        let cat={
+            docCat:localStorage.getItem('docCat')
+        } 
+        console.log("cattt",cat)
+        fetch("http://localhost:3001/user/getDocByCat", {
+          method: 'post',
+          body: cat,
+          mode: 'no-cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).then(response => {
+          return response.json();
+        }).then(res => {
+        });
+      });
 
     return (
         <Card className={classes.card}>
