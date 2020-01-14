@@ -32,13 +32,16 @@ export default function Cards(props) {
     const [hour, setHour] = useState(0);
     const handleHour = (event, hour) => {
         setHour(hour)
+        localStorage.setItem('hour', hour)
     }
     const handleDay = (event, day) => {
         setDay(day)
+        localStorage.setItem('day', day)
     }
     const handleChange = event => {
         setChecked(event.target.checked);
-        selectDoc(event.target.name);
+        selectDoc(event.target.value);
+        localStorage.setItem('doctor', event.target.name)
     };
     const classes = useStyles();
 
@@ -57,11 +60,11 @@ export default function Cards(props) {
                         <FormControl component="fieldset" >
                             <FormLabel component="legend">Day</FormLabel>
                             <RadioGroup aria-label="availability" name="day" value={day} onChange={handleDay}>
-                                <FormControlLabel value="1" control={<Radio />} label="Monday" />
-                                <FormControlLabel value="2" control={<Radio />} label="Tuesday" />
-                                <FormControlLabel value="3" control={<Radio />} label="Wedensday" />
-                                <FormControlLabel value="4" control={<Radio />} label="Thursday" />
-                                <FormControlLabel value="5" control={<Radio />} label="Friday" />
+                                <FormControlLabel value="Monday" control={<Radio />} label="Monday" />
+                                <FormControlLabel value="Tuesday" control={<Radio />} label="Tuesday" />
+                                <FormControlLabel value="Wedensday" control={<Radio />} label="Wedensday" />
+                                <FormControlLabel value="Thursday" control={<Radio />} label="Thursday" />
+                                <FormControlLabel value="Friday" control={<Radio />} label="Friday" />
                             </RadioGroup>
                         </FormControl>
                     </Grid>
@@ -69,11 +72,11 @@ export default function Cards(props) {
                         <FormControl component="fieldset" >
                             <FormLabel component="legend">Hour</FormLabel>
                             <RadioGroup aria-label="availability" name="hour" value={hour} onChange={handleHour}>
-                                <FormControlLabel value="1" control={<Radio />} label="9-10" />
-                                <FormControlLabel value="2" control={<Radio />} label="10-11" />
-                                <FormControlLabel value="3" control={<Radio />} label="11-12" />
-                                <FormControlLabel value="4" control={<Radio />} label="13-14" />
-                                <FormControlLabel value="5" control={<Radio />} label="14-15" />
+                                <FormControlLabel value="9-10" control={<Radio />} label="9-10" />
+                                <FormControlLabel value="10-11" control={<Radio />} label="10-11" />
+                                <FormControlLabel value="11-12" control={<Radio />} label="11-12" />
+                                <FormControlLabel value="13-14" control={<Radio />} label="13-14" />
+                                <FormControlLabel value="14-15" control={<Radio />} label="14-15" />
                             </RadioGroup>
                         </FormControl>
                     </Grid>
@@ -83,11 +86,11 @@ export default function Cards(props) {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            name={props.id}
+                            value={props.id}
+                            name={props.lastName}
                             checked={checked}
                             onChange={handleChange}
-                            label='sd'
-                            value="primary"
+                            label='doctor'
                             inputProps={{ 'aria-label': 'primary checkbox' }}
                         />
                     }

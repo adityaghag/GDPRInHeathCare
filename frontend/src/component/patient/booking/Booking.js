@@ -104,12 +104,19 @@ export default function Booking() {
           spacing={2}
         >
           <Grid item xs>
-            {step !== 1 ? (
+            {(step !== 1 && step !== 3) ? (
               <Button variant="contained" color="primary" onClick={() => setStep(step - 1)} className={classes.Button}>Back</Button>) :
               ''
             }
             {step !== 3 ? (
               <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Next</Button>) :
+              ''
+            }
+            {step === 3 ? (
+              <React.Fragment>
+                <br />
+                <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Submit</Button>
+              </React.Fragment>) :
               ''
             }
           </Grid>
