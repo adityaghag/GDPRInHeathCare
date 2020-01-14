@@ -16,6 +16,7 @@ import testresults from './component/lab/Testresults';
 import admin from './component/admin/Admin';
 import adddoctor from './component/admin/Adddoctor';
 import addlab from './component/admin/Addlab';
+import registersuccess from './component/registeration and login/patient/Registersucess';
 import NotFound from './NotFound';
 import App from "./App";
 
@@ -27,6 +28,7 @@ const Routes = () => {
                 <Route path="/booking" component={booking} />
                 <Route path="/login" component={login} />
                 <Route path="/register" component={register} />
+                <Route path="/registersuccess" component={registersuccess} />
                 <Route path="/stafflogin" component={stafflogin} />
                 <Route path="/patient" component={patient} />
                 <Route path="/reportview" component={reportview} />
