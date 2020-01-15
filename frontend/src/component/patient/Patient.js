@@ -4,7 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { MenuList, MenuItem } from '@material-ui/core';
@@ -37,40 +37,45 @@ const useStyles = makeStyles(theme => ({
 
 export default function Patient() {
   const classes = useStyles();
-
   return (
     <React.Fragment>
-            <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        HSRW Patient Dashboard
-          </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                className={classes.drawer}
-                variant="permanent"
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                anchor="left"
-            >
-                <div className={classes.toolbar} />
-                <MenuList>
-                    <MenuItem component={Link} to="/patient">Home</MenuItem>
-                </MenuList>
-                <MenuList>
-                    <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
-                </MenuList>
-                <MenuList>
-                    <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
-                </MenuList>
-                <Divider />
-                <MenuList>
-                    <MenuItem component={Link} to="/login">Logout</MenuItem>
-                </MenuList>
-            </Drawer>
-        </React.Fragment>
+      <CssBaseline />
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" noWrap>
+            HSRW Patient Dashboard
+            </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={classes.toolbar} />
+        <MenuList>
+          <MenuItem component={Link} to="/patient">Home</MenuItem>
+        </MenuList>
+        <Divider />
+        <MenuList>
+          <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
+        </MenuList>
+        <Divider />
+        <MenuList>
+          <MenuItem component={Link} to="/booking">Booking Appointment</MenuItem>
+        </MenuList>
+        <Divider />
+        <MenuList>
+          <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
+        </MenuList>
+        <Divider />
+        <MenuList>
+          <MenuItem component={Link} to="/login">Logout</MenuItem>
+        </MenuList>
+      </Drawer>
+    </React.Fragment>
   );
 }

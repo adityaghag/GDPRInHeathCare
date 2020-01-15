@@ -42,7 +42,7 @@ export default function Cards(props) {
         setChecked(event.target.checked);
         selectDoc(event.target.value);
         localStorage.setItem('doctor', event.target.name)
-        localStorage.setItem('doctorId', event.target.value)
+        localStorage.setItem('doctorId', selectedDoc)
     };
     const classes = useStyles();
 

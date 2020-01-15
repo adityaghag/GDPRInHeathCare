@@ -73,8 +73,13 @@ export default function Booking() {
         <MenuList>
           <MenuItem component={Link} to="/patient">Home</MenuItem>
         </MenuList>
+        <Divider />
         <MenuList>
-          <MenuItem component={Link} to="/booking">Book Appointment</MenuItem>
+          <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
+        </MenuList>
+        <Divider />
+        <MenuList>
+          <MenuItem component={Link} to="/booking">Booking Appointment</MenuItem>
         </MenuList>
         <Divider />
         <MenuList>
