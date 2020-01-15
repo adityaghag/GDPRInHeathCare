@@ -2,6 +2,8 @@ import React , { useEffect,useState }from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Patient from './Patient';
+import Reports from './AllReports';
+import { Grid } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -31,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Reportview() {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
   const [docsData, setdocsData] = useState({});
 
   const fetchData = async ()=>{
@@ -49,7 +52,8 @@ export default function Reportview() {
       return response.json();
     }).then(res => {
       console.log("------",res)
-      setdocsData(res)
+      setdocsData(res.document)
+      setLoading(true);
     });
   }
 
@@ -57,17 +61,22 @@ export default function Reportview() {
     fetchData();
   },[]);
 
-  console.log("docsData.document[0].documentFile",docsData.document)
-  
-  return (
-    <div className={classes.root}>
-    < Patient />
-    <main className={classes.content}>
-      <div className={classes.toolbar} />
-      <Typography paragraph>
-        {/* {docsData.document[0].documentFile} */}
-      </Typography>
-    </main>
-  </div>
-  );
+  console.log("docsData.document[0].documentFile",docsData)
+
+  const createCard = () => {
+    let card = []
+    docsData.map((item) => {
+        return card.push(<Grid item key={item._id} xs={4}><Reports id={item._id} fileName={item.fileName} documentFile={item.documentFile} comments={item.comments}/></Grid>)
+    });
+    return card
+}
+if (!loading)
+return <h1>No Data</h1>
+else {
+return (
+    <Grid container spacing={4}>
+        {createCard()}
+    </Grid>
+);
+}
 }
