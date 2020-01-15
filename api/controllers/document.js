@@ -7,8 +7,9 @@ var mammoth = require("mammoth");
 const Document = require("../models/document");
 
 exports.getAllDocumentsOfPatient = (req, res, next) => {
+  console.log("req.patientId",req.body.patientId)
   Document.find({
-        patientId:req.patientId
+        patientId:req.body.patientId
     })
       .exec()
       .then(docs => {
@@ -80,7 +81,7 @@ exports.updateDocument = (req, res, next) => {
   };
 
 exports.uploadDocument = (req, res, next) => {
-  console.log("--------",req.file)
+  console.log("----++++++----",req.file)
   mammoth.extractRawText({path: req.file.path})
     .then(function(result){
         var text = result.value; // The raw text 
@@ -93,9 +94,10 @@ exports.uploadDocument = (req, res, next) => {
         
       const document = new Document({
       _id: new mongoose.Types.ObjectId(),
-      comments: req.body.comment,
+      comments: req.body.comments,
       fileName: req.body.fileName,
-      documentFile: req.file.path
+      documentFile: req.file.path,
+      patientId:req.body.patientId
       });
       document
       .save()

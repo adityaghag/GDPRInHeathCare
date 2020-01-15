@@ -34,4 +34,7 @@ const storage = multer.diskStorage({
 
 router.post("/uploadDocument", upload.single('documentFile'), documentController.uploadDocument);
 
+router.post("/getAllDoc", documentController.getAllDocumentsOfPatient);
+
+
 module.exports = router;

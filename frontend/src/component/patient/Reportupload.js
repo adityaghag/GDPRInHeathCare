@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {DropzoneArea} from 'material-ui-dropzone';
@@ -29,8 +29,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function submitForm(data) {
+  console.log("datataaaaa",data)
+  fetch("http://localhost:3001/documents/uploadDocument", {
+    method: 'POST',
+    body: data,
+  }).then(res => {
+    console.log(res)
+  });
+}
+
 export default function Reportupload() {
   const classes = useStyles();
+  const uploadDoc = e => {
+    console.log(".------",e[0])
+    // const fileInput = document.querySelector('#your-file-input') ;
+    const patientId=localStorage.getItem('userId');
+    console.log(".---patientId---",patientId)
+
+    const formData = new FormData();
+    formData.append('documentFile', e[0]);
+    formData.append('fileName', 'First')
+    formData.append('comments', 'asdada')
+    formData.append('patientId', patientId)
+    console.log("eeeee",formData)
+    submitForm(formData)
+  };
 
   return (
     <div className={classes.root}>
@@ -40,7 +64,8 @@ export default function Reportupload() {
       <Typography paragraph>
         Upload your Reports here
       </Typography>
-      <DropzoneArea accept="application/msword" dropzoneText="Drag and drop your report here" showPreviewsInDropzone/>
+      <DropzoneArea accept="application/msword" dropzoneText="Drag and drop your report here" 
+                    onChange={uploadDoc} showPreviewsInDropzone/>
     </main>
   </div>
   );

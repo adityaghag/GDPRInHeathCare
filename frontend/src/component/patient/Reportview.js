@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect,useState }from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Patient from './Patient';
@@ -31,14 +31,41 @@ const useStyles = makeStyles(theme => ({
 
 export default function Reportview() {
   const classes = useStyles();
+  const [docsData, setdocsData] = useState({});
 
+  const fetchData = async ()=>{
+    const patientId={
+      patientId:localStorage.getItem('userId')
+    }
+    console.log("cattt",patientId)
+    fetch("http://localhost:3001/documents/getAllDoc", {
+      method: 'post',
+      body: JSON.stringify(patientId),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      return response.json();
+    }).then(res => {
+      console.log("------",res)
+      setdocsData(res)
+    });
+  }
+
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+  console.log("docsData.document[0].documentFile",docsData.document)
+  
   return (
     <div className={classes.root}>
     < Patient />
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <Typography paragraph>
-        View Reports
+        {/* {docsData.document[0].documentFile} */}
       </Typography>
     </main>
   </div>

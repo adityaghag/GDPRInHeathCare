@@ -68,7 +68,9 @@ export default function SignInSide() {
     }).then(response => {
       return response.json()
     }).then(res => {
-      localStorage.setItem('userData',res)
+      console.log("login ress----",res.userId)
+      localStorage.setItem('userId',res.userId)
+      localStorage.setItem('token',res.token)
       if (res.token)
         setRedirect(true)
     });
