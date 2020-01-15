@@ -19,29 +19,31 @@ import addlab from './component/admin/Addlab';
 import registersuccess from './component/registeration and login/patient/Registersucess';
 import NotFound from './NotFound';
 import App from "./App";
+import ProtecedRoute from './Protected.route'
+
 
 const Routes = () => {
     return (
         <div>
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/booking" component={booking} />
+                <ProtecedRoute exact path="/booking" component={booking} />
                 <Route path="/login" component={login} />
                 <Route path="/register" component={register} />
                 <Route path="/registersuccess" component={registersuccess} />
                 <Route path="/stafflogin" component={stafflogin} />
-                <Route path="/patient" component={patient} />
-                <Route path="/reportview" component={reportview} />
-                <Route path="/reportupload" component={reportupload} />
-                <Route path="/doctor" component={doctor} />
-                <Route path="/patientinfo" component={patientinfo} />
-                <Route path="/lab" component={lab} />
-                <Route path="/pendingtests" component={pendingtests} />
-                <Route path="/testresults" component={testresults} />
-                <Route path="/admin" component={admin} />
-                <Route path="/bookingappointment" component={BookingAppointment} />
-                <Route path="/adddoctor" component={adddoctor} />
-                <Route path="/addlab" component={addlab} />
+                <ProtecedRoute path="/patient" component={patient} />
+                <ProtecedRoute path="/reportview" component={reportview} />
+                <ProtecedRoute path="/reportupload" component={reportupload} />
+                <ProtecedRoute path="/doctor" component={doctor} />
+                <ProtecedRoute path="/patientinfo" component={patientinfo} />
+                <ProtecedRoute path="/lab" component={lab} />
+                <ProtecedRoute path="/pendingtests" component={pendingtests} />
+                <ProtecedRoute path="/testresults" component={testresults} />
+                <ProtecedRoute path="/admin" component={admin} />
+                <ProtecedRoute path="/bookingappointment" component={BookingAppointment} />
+                <ProtecedRoute path="/adddoctor" component={adddoctor} />
+                <ProtecedRoute path="/addlab" component={addlab} />
                 <Route component={NotFound} />
             </Switch>
         </div>

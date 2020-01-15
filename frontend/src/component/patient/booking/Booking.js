@@ -109,11 +109,11 @@ export default function Booking() {
         >
           <Grid item xs>
             {(step !== 1 && step !== 3) ? (
-              <Button disabled={!enable} variant="contained" color="primary" onClick={() => { setStep(step - 1); enableBtn(false) }} className={classes.Button}>Back</Button>) :
+              <Button disabled={enable} variant="contained" color="primary" onClick={() => { setStep(step - 1); enableBtn(false) }} className={classes.Button}>Back</Button>) :
               ''
             }
             {step !== 3 ? (
-              <Button disabled={!enable} variant="contained" color="primary" onClick={() => { setStep(step + 1) }}>Next</Button>) :
+              <Button disabled={!enable} variant="contained" color="primary" onClick={() => { setStep(step + 1); enableBtn(false) }}>Next</Button>) :
               ''
             }
             {step === 3 ? (

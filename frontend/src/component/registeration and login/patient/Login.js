@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Login.css';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom'
-
+import Auth from '../auth'
 
 //TODO Kapil please redirect the patient after success login OR show error message when login faild
 
@@ -68,11 +68,14 @@ export default function SignInSide() {
     }).then(response => {
       return response.json()
     }).then(res => {
-      console.log("login ress----",res.userId)
-      localStorage.setItem('userId',res.userId)
-      localStorage.setItem('token',res.token)
-      if (res.token)
+      console.log("login ress----", res.userId)
+      localStorage.setItem('userId', res.userId)
+      localStorage.setItem('token', res.token)
+      if (res.token) {
+        Auth.login(() => { this.props.history.push('/patient') })
+        localStorage.setItem('token', res.token)
         setRedirect(true)
+      }
     });
   };
 
