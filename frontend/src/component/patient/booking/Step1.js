@@ -5,20 +5,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function Booking() {
-    const [value, setValue] = React.useState('Cardiologist');
-    // localStorage.setItem('docCat','Cardiologist')
+export default function Step1({ parentCallback }) {
+    const [value, setValue] = React.useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        localStorage.setItem('docCat',newValue)
+        parentCallback(newValue);
+        localStorage.setItem('docCat', newValue)
     };
+
     return (
         <React.Fragment>
             <FormControl component="fieldset" >
                 <FormLabel component="legend">Categories</FormLabel>
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <FormControlLabel value="Cardiologist" control={<Radio />} label="Cardiologist" />
+                    <FormControlLabel value="Cardiologis" control={<Radio />} label="Cardiologis" />
                     <FormControlLabel value="Neurosurgeon" control={<Radio />} label="Neurosurgeon" />
                     <FormControlLabel value="Orthopedcian" control={<Radio />} label="Orthopedcian" />
                     <FormControlLabel value="Oncologist" control={<Radio />} label="Oncologist" />

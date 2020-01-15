@@ -30,55 +30,55 @@ exports.getAllDocumentsOfPatient = (req, res, next) => {
         res.status(500).json({
           error: err
         });
-      });
-  };
+      })
+};
 
-exports.getAllDocumentsOfDoctors = (req, res, next) => { 
+exports.getAllDocumentsOfDoctors = (req, res, next) => {
   Document.find({
-      doctorId:req.doctorId
+    doctorId: req.doctorId
+  })
+    .exec()
+    .then(docs => {
+      if (docs.length >= 0) {
+        const response = {
+          count: docs.length,
+          document: docs
+        };
+        res.status(200).json(response);
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
     })
-      .exec()
-      .then(docs => {
-        if (docs.length >= 0) {
-          const response = {
-            count: docs.length,
-            document: docs
-          };
-            res.status(200).json(response);
-          } else {
-              res.status(404).json({
-                  message: 'No entries found'
-              });
-          }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       });
-  };
-  
+    });
+};
+
 exports.updateDocument = (req, res, next) => {
-    const id = req.body.documentId;
-    const updateOps = {};
-    for (const ops of req.body) {
-      updateOps[ops.propName] = ops.value;
-    }
-    Appointment.update({ _id: id }, { $set: updateOps })
-      .exec()
-      .then(result => {
-        res.status(200).json({
-          message: "Appointment updated"
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
+  const id = req.body.documentId;
+  const updateOps = {};
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+  Appointment.update({ _id: id }, { $set: updateOps })
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "Appointment updated"
       });
-  };
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
 
 exports.uploadDocument = (req, res, next) => {
   console.log("----++++++----",req.file)
@@ -100,21 +100,21 @@ exports.uploadDocument = (req, res, next) => {
       patientId:req.body.patientId
       });
       document
-      .save()
-      .then(result => {
-        console.log(result);
-        res.status(201).json({
-          message: "File uploaded successfully"
+        .save()
+        .then(result => {
+          console.log(result);
+          res.status(201).json({
+            message: "File uploaded successfully"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
         });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
     })
-  };
-  
+};
 
-  
+
+

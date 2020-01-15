@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -219,19 +217,19 @@ export default function Register() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <TextField
-      id="date"
-      label="Birthday"
-      type="date"
-      defaultValue="2017-05-24"
-      className={classes.textField}
-      InputLabelProps={{
-      shrink: true,
-      }}
-      value={form.birthDate}
-      onChange={updateField}
-      name='birthDate'
-      />
+                <TextField
+                  id="date"
+                  label="Birthday"
+                  type="date"
+                  defaultValue="2017-05-24"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={form.birthDate}
+                  onChange={updateField}
+                  name='birthDate'
+                />
                 {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <DatePicker
                     disableFuture
