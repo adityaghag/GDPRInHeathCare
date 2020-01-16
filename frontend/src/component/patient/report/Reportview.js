@@ -3,6 +3,7 @@ import Reports from './AllReports';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Patient from '../Patient';
+import Loading from '../../Loading';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +25,6 @@ export default function Reportview() {
     const patientId = {
       patientId: localStorage.getItem('userId')
     }
-    console.log("cattt", patientId)
     fetch("http://localhost:3001/documents/getAllDoc", {
       method: 'post',
       body: JSON.stringify(patientId),
@@ -35,7 +35,6 @@ export default function Reportview() {
     }).then(response => {
       return response.json();
     }).then(res => {
-      console.log("------", res)
       setdocsData(res.document)
       setLoading(true);
     });
@@ -45,8 +44,6 @@ export default function Reportview() {
     fetchData();
   }, []);
 
-  console.log("docsData.document[0].documentFile", docsData)
-
   const createCard = () => {
     let card = []
     docsData.map((item) => {
@@ -54,19 +51,17 @@ export default function Reportview() {
     });
     return card
   }
-  if (!loading)
-    return <h1>No Data</h1>
-  else {
-    return (
-      <div className={classes.root}>
-        < Patient />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Grid container spacing={4}>
-            {createCard()}test
+  return (
+    <div className={classes.root}>
+      < Patient />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {
+          !loading ? <Loading /> : <Grid container spacing={4}>
+            {createCard()}
           </Grid>
-        </main>
-      </div>
-    );
-  }
+        }
+      </main>
+    </div>
+  );
 }

@@ -33,7 +33,7 @@ const Routes = () => {
                 <Route path="/registersuccess" component={registersuccess} />
                 <Route path="/stafflogin" component={stafflogin} />
                 <ProtecedRoute path="/patient" component={patient} />
-                <ProtecedRoute path="/reportview" component={reportview} />
+                <Route path="/reportview" component={reportview} />
                 <ProtecedRoute path="/reportupload" component={reportupload} />
                 <ProtecedRoute path="/doctor" component={doctor} />
                 <ProtecedRoute path="/patientinfo" component={patientinfo} />

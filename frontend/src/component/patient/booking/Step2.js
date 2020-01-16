@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cards from './Cards';
 import { Grid } from "@material-ui/core";
-
+import Loading from '../../Loading';
 
 export default function Step2() {
     const [loading, setLoading] = useState(false);
@@ -36,13 +36,15 @@ export default function Step2() {
         });
         return card
     }
-    if (!loading)
-        return <h1>No Data</h1>
-    else {
-        return (
-            <Grid container spacing={4}>
-                {createCard()}
-            </Grid>
-        );
-    }
+
+    return (
+        <React.Fragment>
+            {!loading ?
+                <Loading /> :
+                <Grid container spacing={4}>
+                    {createCard()}
+                </Grid>
+            }
+        </React.Fragment>
+    );
 }
