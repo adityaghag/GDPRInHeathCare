@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Reports from './AllReports';
 import { Grid } from "@material-ui/core";
-import Patient from './Patient';
+import Patient from '../Patient';
 
 
 export default function Reportview() {

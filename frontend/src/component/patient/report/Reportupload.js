@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { DropzoneArea } from 'material-ui-dropzone';
-import Patient from './Patient';
+import Patient from '../Patient';
 
 
 const useStyles = makeStyles(theme => ({
