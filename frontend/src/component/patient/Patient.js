@@ -12,9 +12,7 @@ import { MenuList, MenuItem } from '@material-ui/core';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
+
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
@@ -26,12 +24,7 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.primary.default,
-    padding: theme.spacing(3),
-  },
+  toolbar: theme.mixins.toolbar
 }));
 
 

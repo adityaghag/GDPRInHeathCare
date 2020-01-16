@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 export default function Booking() {
   const [step, setStep] = useState(1);
   const classes = useStyles();
