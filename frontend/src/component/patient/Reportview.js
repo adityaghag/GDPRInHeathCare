@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Reports from './AllReports';
 import { Grid } from "@material-ui/core";
-
+import Patient from './Patient';
 
 
 export default function Reportview() {
@@ -46,9 +46,15 @@ export default function Reportview() {
     return <h1>No Data</h1>
   else {
     return (
-      <Grid container spacing={4}>
-        {createCard()}
-      </Grid>
+      <div>
+        < Patient />
+        <main>
+          <Grid container spacing={4}>
+            {createCard()}
+          </Grid>
+        </main>
+      </div>
     );
   }
 }
+
