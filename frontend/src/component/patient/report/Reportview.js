@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Reports from './AllReports';
 import { Grid } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 import Patient from '../Patient';
 
-
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.primary.default,
+    padding: theme.spacing(3),
+  },
+}));
 export default function Reportview() {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [docsData, setdocsData] = useState({});
 
@@ -46,15 +58,15 @@ export default function Reportview() {
     return <h1>No Data</h1>
   else {
     return (
-      <div>
+      <div className={classes.root}>
         < Patient />
-        <main>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
           <Grid container spacing={4}>
-            {createCard()}
+            {createCard()}test
           </Grid>
         </main>
       </div>
     );
   }
 }
-
