@@ -182,7 +182,7 @@ export default function Reportupload() {
           fullWidth
           variant="outlined"
           className={classes.submit}
-          onClick={uploadDoc}
+          onClick={handleClickOpen}
         >
           Submit
           </Button>

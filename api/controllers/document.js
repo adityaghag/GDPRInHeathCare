@@ -92,11 +92,12 @@ exports.uploadDocument = (req, res, next) => {
         })
         fs.writeFile('./uploads/'+ req.body.patientId + '_' + req.file.filename + '', redactedText, ()=>{});
         
+      let docPath='./uploads/'+ req.body.patientId + '_' + req.file.filename + ''
       const document = new Document({
       _id: new mongoose.Types.ObjectId(),
       comments: req.body.comments,
       fileName: req.body.fileName,
-      documentFile: req.file.path,
+      documentFile: docPath,
       patientId:req.body.patientId,
       createdDate:new Date()
       });

@@ -235,6 +235,7 @@ exports.doctors_by_day = (req, res, next) => {
   console.log("Docssss--sdadasdad----",req.body)
   User.find({
     userType: 'Doctor',
+    doctorsCategory:req.body.docCat,
     doctorsDay: { $elemMatch: { day: req.body.day} }
   })
     .exec()
