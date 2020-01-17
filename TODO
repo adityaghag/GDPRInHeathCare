@@ -1,0 +1,8 @@
+
+Todo:
+  ☐ User type when login @critical
+  ☐ Add comment field and document name field in upload @high 
+  ☐ Protected Routes (Save the token and check when reload the page) @high 
+  ✔ formate document upload date @low @done(20-01-17 10:45)
+  ☐ upload document sometimes dosent work @critical 
+  ☐ complete Booking component @critical 
