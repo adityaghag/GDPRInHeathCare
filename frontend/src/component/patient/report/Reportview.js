@@ -35,6 +35,7 @@ let rows = [];
 export default function Reportview() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
   const [docsData, setdocsData] = useState({});
 
   const fetchData = async () => {
@@ -88,6 +89,7 @@ export default function Reportview() {
                       </TableCell>
                       <TableCell align="center">{row.comments}</TableCell>
                       <TableCell align="center">{row.date}</TableCell>
+                      {/* eslint-disable-next-line */}
                       <TableCell align="center"> <a href={"http://localhost:3001/" + row.document} target="_blank"><CloudDownloadIcon /></a></TableCell>
                     </TableRow>
                   ))}
