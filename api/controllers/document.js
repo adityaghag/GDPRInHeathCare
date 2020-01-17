@@ -97,7 +97,8 @@ exports.uploadDocument = (req, res, next) => {
       comments: req.body.comments,
       fileName: req.body.fileName,
       documentFile: req.file.path,
-      patientId:req.body.patientId
+      patientId:req.body.patientId,
+      createdDate:new Date()
       });
       document
         .save()

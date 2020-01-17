@@ -7,7 +7,8 @@ const documentSchema = mongoose.Schema({
     labId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     documentFile:{type:String},
     fileName:String,
-    comments:String
+    comments:String,
+    createdDate:Date
 });
 
 module.exports = mongoose.model('Document',documentSchema)
