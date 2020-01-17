@@ -72,7 +72,10 @@ export default function SignInSide() {
       localStorage.setItem('userId', res.userId)
       localStorage.setItem('token', res.token)
       if (res.token) {
-        Auth.login(() => { this.props.history.push('/patient') })
+        if (res.userType === 'Patient')
+          Auth.login(() => { this.props.history.push('/patient') })
+        else if (res.userType === 'Doctor')
+          Auth.login(() => { this.props.history.push('/doctor') })
         localStorage.setItem('token', res.token)
         setRedirect(true)
       }
