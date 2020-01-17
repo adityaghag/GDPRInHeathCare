@@ -19,7 +19,7 @@ import addlab from './component/admin/Addlab';
 import registersuccess from './component/registeration and login/patient/Registersucess';
 import NotFound from './NotFound';
 import App from "./App";
-import ProtecedRoute from './Protected.route'
+import ProtectedRoute from "./Protected.route";
 
 
 const Routes = () => {
@@ -32,7 +32,7 @@ const Routes = () => {
                 <Route path="/register" component={register} />
                 <Route path="/registersuccess" component={registersuccess} />
                 <Route path="/stafflogin" component={stafflogin} />
-                <Route path="/patient" component={patient} />
+                <ProtectedRoute path="/patient" component={patient} />
                 <Route path="/reportview" component={reportview} />
                 <Route path="/reportupload" component={reportupload} />
                 <Route path="/doctor" component={doctor} />
