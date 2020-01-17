@@ -90,7 +90,7 @@ exports.uploadDocument = (req, res, next) => {
         console.log(redactedText);
         fs.unlink(req.file.path,function(){
         })
-        fs.writeFile('./uploads/'+ req.file.filename + '_' + req.body.patientId, redactedText, ()=>{});
+        fs.writeFile('./uploads/'+ req.body.patientId + '_' + req.file.filename + '', redactedText, ()=>{});
         
       const document = new Document({
       _id: new mongoose.Types.ObjectId(),
