@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { MenuList, MenuItem } from '@material-ui/core';
+import Auth from '../registeration and login/auth'
 
 const drawerWidth = 240;
 
@@ -62,7 +63,7 @@ export default function DoctorDrawer() {
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/stafflogin">Logout</MenuItem>
+                    <MenuItem component={Link} to="/stafflogin" onClick={() => { Auth.logout() }}>Logout</MenuItem>
                 </MenuList>
             </Drawer>
         </React.Fragment>
