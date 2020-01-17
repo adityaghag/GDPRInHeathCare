@@ -12,7 +12,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -128,14 +128,6 @@ export default function Reportupload() {
       < Patient />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-        {/* <Typography paragraph>
-          Upload your Reports here
-      </Typography>
-      <TextField id="filled-basic" label="Filled" variant="filled" />
-        <DropzoneArea accept="application/msword" dropzoneText="Drag and drop your report here"
-          onChange={uploadDoc} showPreviewsInDropzone /> */}
-
         <form onSubmit={uploadDoc} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -174,42 +166,29 @@ export default function Reportupload() {
               name="documentFile"
               onChange={updateField} showPreviewsInDropzone />
 
-<<<<<<< HEAD
           </Grid>
-        <br></br>
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          className={classes.submit}
-          onClick={uploadDoc}
-        >
-          Submit
-=======
-            </Grid>
-        <br></br>
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          className={classes.submit}
-          onClick={handleClickOpen}
-        >
-          Submit
->>>>>>> 9c5ceebc1aa609bd350749c464f0158921f94c31
+          <br></br>
+          <Button
+            type="submit"
+            fullWidth
+            variant="outlined"
+            className={classes.submit}
+            onClick={handleClickOpen}
+          >
+            Submit
           </Button>
         </form>
       </main>
-    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-      <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-        Upload Success
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Upload Success
         </DialogTitle>
-      <DialogContent dividers>
-        <Typography gutterBottom>
-          All the personal information get redacted from the document and document get uploaded SuccessFully
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            All the personal information get redacted from the document and document get uploaded SuccessFully
           </Typography>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
     </div >
   );
 }
