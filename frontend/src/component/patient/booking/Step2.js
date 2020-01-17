@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '0px'
     }
 }));
-export default function Step4() {
+export default function Step2() {
     const [value, setValue] = React.useState('');
 
     const handleChange = (event, newValue) => {
@@ -37,8 +37,8 @@ export default function Step4() {
                         {['Monday', 'Tuesday', 'Wedensday', 'Thursday'].map(value => {
                             const labelId = `checkbox-list-label-${value}`;
                             return (
-                                <React.Fragment>
-                                    <ListItem key={value} role={undefined} dense button >
+                                <React.Fragment key={value} >
+                                    <ListItem role={undefined} dense button >
                                         <ListItemIcon >
                                             <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
                                         </ListItemIcon>

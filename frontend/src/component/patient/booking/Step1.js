@@ -38,8 +38,8 @@ export default function Step1({ parentCallback }) {
                         {['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
                             const labelId = `checkbox-list-label-${value}`;
                             return (
-                                <React.Fragment>
-                                    <ListItem key={value} role={undefined} dense button >
+                                <React.Fragment key={value}>
+                                    <ListItem role={undefined} dense button >
                                         <ListItemIcon >
                                             <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
                                         </ListItemIcon>

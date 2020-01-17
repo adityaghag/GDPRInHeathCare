@@ -12,9 +12,10 @@ export default function Step3() {
 
     const fetchData = async () => {
         let cat = {
-            docCat: localStorage.getItem('docCat')
+            docCat: localStorage.getItem('docCat'),
+            day: localStorage.getItem('day')
         }
-        fetch("http://localhost:3001/user/getDocByCat", {
+        fetch("http://localhost:3001/user/doctors_by_day", {
             method: 'post',
             body: JSON.stringify(cat),
             headers: {
@@ -48,4 +49,3 @@ export default function Step3() {
         </React.Fragment>
     );
 }
-
