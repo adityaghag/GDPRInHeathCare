@@ -3,12 +3,12 @@ class Auth {
         this.auth = false
     }
 
-    login(cb) {
+    login() {
         localStorage.setItem('isAuth', true)
         this.auth = true
     }
 
-    logout(cb) {
+    logout() {
         localStorage.setItem('isAuth', false)
         this.auth = false
     }

@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Login.css';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom'
-import Auth from '../auth'
+import Auth from '../auth';
 
 //TODO Kapil please redirect the patient after success login OR show error message when login faild
 
@@ -51,12 +51,13 @@ const useStyles = makeStyles(theme => ({
 export default function SignInSide() {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(false);
+  const [redirectto, setRedirectTo] = useState('');
   const [form, setState] = useState({
     email: '',
     password: ''
   });
 
-  const printValues = e => {
+  const login = e => {
     e.preventDefault();
     fetch("http://localhost:3001/user/login", {
       method: 'post',
@@ -68,14 +69,18 @@ export default function SignInSide() {
     }).then(response => {
       return response.json()
     }).then(res => {
-      console.log("login ress----", res.userId)
       localStorage.setItem('userId', res.userId)
       localStorage.setItem('token', res.token)
       if (res.token) {
+        Auth.login()
         if (res.userType === 'Patient')
-          Auth.login(() => { this.props.history.push('/patient') })
+          setRedirectTo('/patient')
         else if (res.userType === 'Doctor')
-          Auth.login(() => { this.props.history.push('/doctor') })
+          setRedirectTo('/doctor')
+        else if (res.userType === 'Admin')
+          setRedirectTo('/admin')
+        else if (res.userType === 'Lab')
+          setRedirectTo('/lab')
         localStorage.setItem('token', res.token)
         setRedirect(true)
       }
@@ -89,7 +94,7 @@ export default function SignInSide() {
     });
   };
   if (redirect) {
-    return < Redirect to="/patient" />;
+    return < Redirect to={redirectto} />;
   }
   else {
     return (
@@ -104,7 +109,7 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Login
           </Typography>
-            <form onSubmit={printValues} className={classes.form} noValidate>
+            <form onSubmit={login} className={classes.form} noValidate>
               <TextField
                 variant="outlined"
                 margin="normal"
