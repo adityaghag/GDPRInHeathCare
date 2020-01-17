@@ -1,50 +1,64 @@
-import React, { useState, useEffect } from "react";
-import Cards from './Cards';
+import React from 'react';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
 import { Grid } from "@material-ui/core";
-import Loading from '../../Loading';
 
-export default function Step2() {
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        fetchData();
-    }, [loading]);
-    const [docsData, setdocsData] = useState({});
-
-    const fetchData = async () => {
-        let cat = {
-            docCat: localStorage.getItem('docCat')
-        }
-        fetch("http://localhost:3001/user/getDocByCat", {
-            method: 'post',
-            body: JSON.stringify(cat),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(res => {
-            setdocsData(res.data);
-            setLoading(true);
-        });
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+    },
+    hr: {
+        margin: '0px'
+    },
+    itemIcon: {
+        marginBottom: '0px'
     }
+}));
+export default function Step4() {
+    const [value, setValue] = React.useState('');
 
-    const createCard = () => {
-        let card = []
-        docsData.map((item) => {
-            return card.push(<Grid item key={item._id} xs={4}><Cards id={item._id} userType={item.userType} firstName={item.firstName} lastName={item.lastName} /></Grid>)
-        });
-        return card
-    }
-
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        localStorage.setItem('day', newValue)
+    };
+    const classes = useStyles();
     return (
-        <React.Fragment>
-            {!loading ?
-                <Loading /> :
-                <Grid container spacing={4}>
-                    {createCard()}
-                </Grid>
-            }
-        </React.Fragment>
+        <Grid container>
+            <Grid item xs={12}>
+                <List className={classes.root}>
+                    <RadioGroup aria-label="day" name="day" value={value} onChange={handleChange}>
+                        {['Monday', 'Tuesday', 'Wedensday', 'Thursday'].map(value => {
+                            const labelId = `checkbox-list-label-${value}`;
+                            return (
+                                <React.Fragment>
+                                    <ListItem key={value} role={undefined} dense button >
+                                        <ListItemIcon >
+                                            <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
+                                        </ListItemIcon>
+                                        <ListItemText id={labelId} primary={value} />
+                                        {/* <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="comments">
+                                                <CommentIcon />
+                                            </IconButton>
+                                        </ListItemSecondaryAction> */}
+                                    </ListItem>
+                                    <hr className={classes.hr} />
+                                </React.Fragment>
+                            );
+                        })}
+                    </RadioGroup>
+                </List>
+            </Grid>
+        </Grid>
     );
 }

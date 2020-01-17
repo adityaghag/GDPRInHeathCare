@@ -37,7 +37,7 @@ export default function Step1({ parentCallback }) {
         <Grid container>
             <Grid item xs={12}>
                 <List className={classes.root}>
-                    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                    <RadioGroup aria-label="category" name="category" value={value} onChange={handleChange}>
                         {['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
                             const labelId = `checkbox-list-label-${value}`;
                             return (
@@ -47,11 +47,11 @@ export default function Step1({ parentCallback }) {
                                             <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
                                         </ListItemIcon>
                                         <ListItemText id={labelId} primary={value} />
-                                        <ListItemSecondaryAction>
+                                        {/* <ListItemSecondaryAction>
                                             <IconButton edge="end" aria-label="comments">
                                                 <CommentIcon />
                                             </IconButton>
-                                        </ListItemSecondaryAction>
+                                        </ListItemSecondaryAction> */}
                                     </ListItem>
                                     <hr className={classes.hr} />
                                 </React.Fragment>
