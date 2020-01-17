@@ -14,7 +14,10 @@ class Auth {
     }
 
     isAuth() {
-        return this.auth
+        if (localStorage.getItem('isAuth') === 'true')
+            return true;
+        else
+            return false;
     }
 }
 
