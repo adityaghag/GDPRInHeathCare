@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 export default function Booking() {
   const [step, setStep] = useState(1);
   const classes = useStyles();
+  // eslint-disable-next-line
   const [enable, enableBtn] = useState(false);
   const callback = (cat) => {
     enableBtn(true)

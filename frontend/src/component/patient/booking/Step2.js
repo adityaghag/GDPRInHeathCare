@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -8,6 +8,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Grid } from "@material-ui/core";
+import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,13 +24,35 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 export default function Step2() {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         localStorage.setItem('day', newValue)
     };
     const classes = useStyles();
+
+    useEffect(() => {
+        ['Monday', 'Tuesday', 'Wedensday', 'Thursday'].map(value => {
+            let cat = {
+                day: value,
+                docCat: localStorage.getItem('docCat'),
+            }
+            fetch("http://localhost:3001/user/doctors_by_day", {
+                method: 'post',
+                body: JSON.stringify(cat),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                return response.json();
+            }).then(res => {
+                localStorage.setItem(value, res.count);
+                return;
+            });
+        })
+    }, [])
     return (
         <Grid container>
             <Grid item xs={12}>
@@ -43,6 +67,7 @@ export default function Step2() {
                                             <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
                                         </ListItemIcon>
                                         <ListItemText id={labelId} primary={value} />
+                                        <Chip label={"Doctors Available: " + localStorage.getItem(value)} icon={<FaceIcon />} color={localStorage.getItem(value) !== '0' ? "primary" : "secondary"} />
                                     </ListItem>
                                     <hr className={classes.hr} />
                                 </React.Fragment>
