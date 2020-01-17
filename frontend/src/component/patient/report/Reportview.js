@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Reports from './AllReports';
-import { Grid } from "@material-ui/core";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { makeStyles } from '@material-ui/core/styles';
 import Patient from '../Patient';
 import Loading from '../../Loading';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +21,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.default,
     padding: theme.spacing(3),
   },
+  table: {
+    minWidth: 650,
+  },
 }));
+
+function createData(id, fileName, date, comments, document) {
+  return { id, fileName, date, comments, document };
+}
+
+let rows = [];
+
 export default function Reportview() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
@@ -35,7 +51,10 @@ export default function Reportview() {
     }).then(response => {
       return response.json();
     }).then(res => {
-      setdocsData(res.document)
+      setdocsData(res.document);
+      rows = docsData.map(row =>
+        createData(row.id, row.fileName, row.createdDate, row.comments, row.documentFile)
+      );
       setLoading(true);
     });
   }
@@ -44,22 +63,37 @@ export default function Reportview() {
     fetchData();
   }, []);
 
-  const createCard = () => {
-    let card = []
-    docsData.map((item) => {
-      return card.push(<Grid item key={item._id} xs={4}><Reports id={item._id} fileName={item.fileName} documentFile={item.documentFile} comments={item.comments} /></Grid>)
-    });
-    return card
-  }
   return (
     <div className={classes.root}>
       < Patient />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {
-          !loading ? <Loading /> : <Grid container spacing={4}>
-            {createCard()}
-          </Grid>
+          !loading ? <Loading /> :
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>File Name</TableCell>
+                    <TableCell align="right">Comments</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Download</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map(row => (
+                    <TableRow key={row.id}>
+                      <TableCell component="th" scope="row">
+                        {row.fileName}
+                      </TableCell>
+                      <TableCell align="right">{row.comments}</TableCell>
+                      <TableCell align="right">{row.date}</TableCell>
+                      <TableCell align="right"> <a href={"http://localhost:3001/" + row.document} target="_blank"><CloudDownloadIcon /></a></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
         }
       </main>
     </div>
