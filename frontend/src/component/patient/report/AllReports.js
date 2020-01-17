@@ -32,7 +32,8 @@ export default function AllReport(props) {
                 <Typography className={classes.pos}>
                     {props.comments}
                 </Typography>
-                <Link to={filePath} target="_blank" download>Download</Link>
+                <a href={"http://localhost:3001" + filePath} target="_blank">Download</a>
+                {/* <Link to={filePath} target="_blank" download>Download</Link> */}
             </CardContent>
             <CardActions>
                 {/* <FormControlLabel
