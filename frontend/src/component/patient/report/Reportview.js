@@ -52,8 +52,8 @@ export default function Reportview() {
       return response.json();
     }).then(res => {
       setdocsData(res.document);
-      rows = docsData.map(row =>
-        createData(row.id, row.fileName, row.createdDate, row.comments, row.documentFile)
+      rows = res.document.map(row =>
+        createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
       );
       setLoading(true);
     });
@@ -75,9 +75,9 @@ export default function Reportview() {
                 <TableHead>
                   <TableRow>
                     <TableCell>File Name</TableCell>
-                    <TableCell align="right">Comments</TableCell>
-                    <TableCell align="right">Date</TableCell>
-                    <TableCell align="right">Download</TableCell>
+                    <TableCell align="center">Comments</TableCell>
+                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Download</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -86,9 +86,9 @@ export default function Reportview() {
                       <TableCell component="th" scope="row">
                         {row.fileName}
                       </TableCell>
-                      <TableCell align="right">{row.comments}</TableCell>
-                      <TableCell align="right">{row.date}</TableCell>
-                      <TableCell align="right"> <a href={"http://localhost:3001/" + row.document} target="_blank"><CloudDownloadIcon /></a></TableCell>
+                      <TableCell align="center">{row.comments}</TableCell>
+                      <TableCell align="center">{row.date}</TableCell>
+                      <TableCell align="center"> <a href={"http://localhost:3001/" + row.document} target="_blank"><CloudDownloadIcon /></a></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
