@@ -12,6 +12,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles(theme => ({
@@ -174,7 +175,6 @@ export default function Reportupload() {
               name="documentFile"
               onChange={updateField} showPreviewsInDropzone />
 
-<<<<<<< HEAD
           </Grid>
         <br></br>
         <Button
@@ -185,18 +185,6 @@ export default function Reportupload() {
           onClick={uploadDoc}
         >
           Submit
-=======
-            </Grid>
-        <br></br>
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          className={classes.submit}
-          onClick={handleClickOpen}
-        >
-          Submit
->>>>>>> 9c5ceebc1aa609bd350749c464f0158921f94c31
           </Button>
         </form>
       </main>
