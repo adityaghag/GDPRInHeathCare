@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import booking from './component/patient/booking/Booking';
 import login from './component/registeration and login/patient/Login';
 import register from './component/registeration and login/patient/Register';

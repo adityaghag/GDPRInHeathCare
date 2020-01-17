@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Auth from '../registeration and login/auth'
 
 
 
@@ -65,7 +66,7 @@ export default function Lab() {
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/stafflogin">Logout</MenuItem>
+                    <MenuItem component={Link} to="/stafflogin" onClick={() => { Auth.logout() }}>Logout</MenuItem>
                 </MenuList>
             </Drawer>
         </React.Fragment>

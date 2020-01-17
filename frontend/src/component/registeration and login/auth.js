@@ -9,7 +9,7 @@ class Auth {
     }
 
     logout() {
-        localStorage.setItem('isAuth', false)
+        localStorage.clear();
         this.auth = false
     }
 

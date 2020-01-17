@@ -7,3 +7,7 @@ Todo:
   ☐ upload document sometimes dosent work @critical 
   ☐ complete Booking component @critical 
   ☐ Add category in the backend and populate the category component (step1) from the database
+  ☐ doctor can upload document @high 
+  ☐ set doucoment name to patient id @high 
+  ☐ doctor patient info component should show all patient for this doctor
+  ☐ upcoming appointments component
