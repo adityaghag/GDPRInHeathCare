@@ -44,6 +44,10 @@ router.get("/", UserController.paitient_get_all);
 
 router.post("/getDocByCat", UserController.doctors_by_cat);
 
+router.post("/getAllPatientForDoc", UserController.get_all_patients_for_docId);
+
+router.post("/doctors_by_day", UserController.doctors_by_day);
+
 // router.post("/", checkAuth, upload.single('productImage'), UserController.products_create_product);
 
 router.get("/:insuranceId", UserController.get_patients_details);

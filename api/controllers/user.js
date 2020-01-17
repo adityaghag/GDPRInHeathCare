@@ -175,11 +175,67 @@ exports.paitient_get_all = (req, res, next) => {
     });
 };
 
+exports.get_all_patients_for_docId = (req, res, next) => {
+  User.find({
+    userType: 'Patient',
+    doctorsId:req.body.doctId
+  })
+    .exec()
+    .then(docs => {
+        if (docs.length >= 0) {
+          const response = {
+            count: docs.length,
+            documents: docs
+          };
+      res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
 exports.doctors_by_cat = (req, res, next) => {
   console.log("Docssss--sdadasdad----",req.body)
   User.find({
     userType: 'Doctor',
     doctorsCategory:req.body.docCat
+  })
+    .exec()
+    .then(docs => {
+      console.log("Docssss------",docs)
+      const response = {
+        count: docs.length,
+        data: docs
+      };
+        if (docs.length >= 0) {
+        res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
+exports.doctors_by_day = (req, res, next) => {
+  console.log("Docssss--sdadasdad----",req.body)
+  User.find({
+    userType: 'Doctor',
+    doctorsDay: { $elemMatch: { day: req.body.day} }
   })
     .exec()
     .then(docs => {

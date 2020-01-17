@@ -34,6 +34,9 @@ const userSchema = mongoose.Schema({
         // index: true
     },
     doctorsCategory:String,
+    doctorsDay:[{
+        day:String
+    }],
     userType: {
         type: String,
         default: "Patient",
