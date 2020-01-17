@@ -64,13 +64,13 @@ export default function Booking() {
               <Button variant="contained" color="primary" onClick={() => { setStep(step + 1); enableBtn(false) }}>Next</Button>) :
               ''
             }
-            {step === 3 ? (
+            {/* {step === 3 ? (
               <React.Fragment>
                 <br />
                 <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Submit</Button>
               </React.Fragment>) :
               ''
-            }
+            } */}
           </Grid>
         </Grid>
       </main>

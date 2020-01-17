@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     card: {
@@ -43,8 +44,7 @@ export default function Cards(props) {
                 <CardMedia
                     className={classes.media}
                     image={`./static/images/${props.lastName}.png`}
-                    height="140"
-                    title="Contemplative Reptile"
+                    title={props.lastName}
                 />
             </CardActionArea>
             <CardContent>
@@ -56,7 +56,7 @@ export default function Cards(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={
                         <Checkbox
                             value={props.id}
@@ -68,7 +68,10 @@ export default function Cards(props) {
                         />
                     }
                     label="Book an Appointment"
-                />
+                /> */}
+                <Button size="small" color="primary">
+                    Book Appointment
+                </Button>
             </CardActions>
         </Card>
     );
