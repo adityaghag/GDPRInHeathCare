@@ -93,5 +93,5 @@ export default function Step1({ parentCallback }) {
                 </Grid>
             </Grid >
         );
-    else return <Loading></Loading>
+    else return <Loading />
 }
