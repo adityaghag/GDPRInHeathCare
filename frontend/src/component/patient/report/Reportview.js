@@ -30,38 +30,42 @@ function createData(id, fileName, date, comments, document) {
   return { id, fileName, date, comments, document };
 }
 
+
 let rows = [];
 
 export default function Reportview() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line
-  const [docsData, setdocsData] = useState({});
+  const [docsData, setdocsData] = useState([]);
 
-  const fetchData = async () => {
-    const patientId = {
-      patientId: localStorage.getItem('userId')
-    }
-    fetch("http://localhost:3001/documents/getAllDoc", {
-      method: 'post',
-      body: JSON.stringify(patientId),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      return response.json();
-    }).then(res => {
-      setdocsData(res.document);
-      rows = res.document.map(row =>
-        createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
-      );
-      setLoading(true);
-    });
-  }
+
+
 
   useEffect(() => {
+    const fetchData = async () => {
+      const patientId = {
+        patientId: localStorage.getItem('userId')
+      }
+      const res = await fetch("http://localhost:3001/documents/getAllDoc", {
+        method: 'post',
+        body: JSON.stringify(patientId),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      res.json().then(res => {
+        rows = res.document.map(row =>
+          createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
+        );
+        setdocsData(rows)
+        setLoading(true);
+      })
+    }
     fetchData();
+    return () => {
+      setLoading(false)
+    };
   }, []);
 
   return (
@@ -82,8 +86,8 @@ export default function Reportview() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
+                  {docsData.map(row => (
+                    <TableRow key={row.fileName}>
                       <TableCell component="th" scope="row">
                         {row.fileName}
                       </TableCell>

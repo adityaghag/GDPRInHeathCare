@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Grid } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
+import Loading from '../../Loading';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,9 +24,11 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '0px'
     }
 }));
+
+
 export default function Step1({ parentCallback }) {
     const [value, setValue] = React.useState('');
-
+    const [isLoaded, setLoaded] = React.useState(false)
     const handleChange = (event, newValue) => {
         setValue(newValue);
         parentCallback(newValue);
@@ -34,7 +37,7 @@ export default function Step1({ parentCallback }) {
     };
     const classes = useStyles();
 
-    useEffect(() => {
+    const fetchData = () => {
         ['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
             let cat = {
                 docCat: value
@@ -50,34 +53,45 @@ export default function Step1({ parentCallback }) {
                 return response.json();
             }).then(res => {
                 localStorage.setItem(value, res.count);
+                setLoaded(true)
                 return;
             });
+            return null;
         });
-    }, [])
+    }
 
-    return (
-        <Grid container>
-            <Grid item xs={12}>
-                <List className={classes.root}>
-                    <RadioGroup aria-label="category" name="category" value={value} onChange={handleChange}>
-                        {['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
-                            const labelId = `checkbox-list-label-${value}`;
-                            return (
-                                <React.Fragment key={value}>
-                                    <ListItem role={undefined} dense button >
-                                        <ListItemIcon >
-                                            <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
-                                        </ListItemIcon>
-                                        <ListItemText id={labelId} primary={value} />
-                                        <Chip label={"Doctors Available: " + localStorage.getItem(value)} icon={<FaceIcon />} color={localStorage.getItem(value) !== '0' ? "primary" : "secondary"} />
-                                    </ListItem>
-                                    <hr className={classes.hr} />
-                                </React.Fragment>
-                            );
-                        })}
-                    </RadioGroup>
-                </List>
-            </Grid>
-        </Grid >
-    );
+    useEffect(() => {
+        fetchData()
+        return () => {
+            setLoaded(false)
+        };
+    }, []);
+
+    if (isLoaded)
+        return (
+            <Grid container>
+                <Grid item xs={12}>
+                    <List className={classes.root}>
+                        <RadioGroup aria-label="category" name="category" value={value} onChange={handleChange}>
+                            {['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
+                                const labelId = `checkbox-list-label-${value}`;
+                                return (
+                                    <React.Fragment key={value}>
+                                        <ListItem role={undefined} dense button >
+                                            <ListItemIcon >
+                                                <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
+                                            </ListItemIcon>
+                                            <ListItemText id={labelId} primary={value} />
+                                            <Chip label={"Doctors Available: " + localStorage.getItem(value)} icon={<FaceIcon />} color={localStorage.getItem(value) !== '0' ? "primary" : "secondary"} />
+                                        </ListItem>
+                                        <hr className={classes.hr} />
+                                    </React.Fragment>
+                                );
+                            })}
+                        </RadioGroup>
+                    </List>
+                </Grid>
+            </Grid >
+        );
+    else return <Loading></Loading>
 }

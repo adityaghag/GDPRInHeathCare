@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Grid } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
+import Loading from '../../Loading';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,15 +26,15 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Step2() {
     const [value, setValue] = useState('');
+    const [isLoaded, setLoaded] = useState(false)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         localStorage.setItem('day', newValue)
     };
     const classes = useStyles();
-
-    useEffect(() => {
-        ['Monday', 'Tuesday', 'Wedensday', 'Thursday'].map(value => {
+    const fetchData = () => {
+        ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].map(value => {
             let cat = {
                 day: value,
                 docCat: localStorage.getItem('docCat'),
@@ -49,33 +50,43 @@ export default function Step2() {
                 return response.json();
             }).then(res => {
                 localStorage.setItem(value, res.count);
+                setLoaded(true)
                 return;
             });
-        })
-    }, [])
-    return (
-        <Grid container>
-            <Grid item xs={12}>
-                <List className={classes.root}>
-                    <RadioGroup aria-label="day" name="day" value={value} onChange={handleChange}>
-                        {['Monday', 'Tuesday', 'Wedensday', 'Thursday'].map(value => {
-                            const labelId = `checkbox-list-label-${value}`;
-                            return (
-                                <React.Fragment key={value} >
-                                    <ListItem role={undefined} dense button >
-                                        <ListItemIcon >
-                                            <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
-                                        </ListItemIcon>
-                                        <ListItemText id={labelId} primary={value} />
-                                        <Chip label={"Doctors Available: " + localStorage.getItem(value)} icon={<FaceIcon />} color={localStorage.getItem(value) !== '0' ? "primary" : "secondary"} />
-                                    </ListItem>
-                                    <hr className={classes.hr} />
-                                </React.Fragment>
-                            );
-                        })}
-                    </RadioGroup>
-                </List>
+            return null;
+        });
+    }
+    useEffect(() => {
+        fetchData()
+        return () => {
+            setLoaded(false)
+        };
+    }, []);
+    if (isLoaded)
+        return (
+            <Grid container>
+                <Grid item xs={12}>
+                    <List className={classes.root}>
+                        <RadioGroup aria-label="day" name="day" value={value} onChange={handleChange}>
+                            {['Monday', 'Tuesday', 'Wednesday', 'Thursday'].map(value => {
+                                const labelId = `checkbox-list-label-${value}`;
+                                return (
+                                    <React.Fragment key={value} >
+                                        <ListItem role={undefined} dense button >
+                                            <ListItemIcon >
+                                                <FormControlLabel className={classes.itemIcon} value={value} control={<Radio />} />
+                                            </ListItemIcon>
+                                            <ListItemText id={labelId} primary={value} />
+                                            <Chip label={"Doctors Available: " + localStorage.getItem(value)} icon={<FaceIcon />} color={localStorage.getItem(value) !== '0' ? "primary" : "secondary"} />
+                                        </ListItem>
+                                        <hr className={classes.hr} />
+                                    </React.Fragment>
+                                );
+                            })}
+                        </RadioGroup>
+                    </List>
+                </Grid>
             </Grid>
-        </Grid>
-    );
+        );
+    else return <Loading></Loading>
 }
