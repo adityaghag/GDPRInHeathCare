@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Button from '@material-ui/core/Button';
 import { Context } from '../../../store/Store';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     card: {
@@ -26,18 +27,19 @@ const useStyles = makeStyles({
 
 
 export default function Cards(props) {
+    let history = useHistory();
     const [state, dispatch] = useContext(Context);
     const classes = useStyles();
-
     const fetchData = async () => {
         let app = {
             patientId: localStorage.getItem('userId'),
-            doctorId: props._id,
+            doctorId: props.id,
             categories: state.selectedCat,
-            date: state.selectedDay,
-            time: '11'
+            date: new Date(),
+            time: new Date(),
+            day: state.selectedDay
         }
-        const res = await fetch("http://localhost:3001/appointment/setAppointmentDetails", {
+        const res = await fetch("http://localhost:3001/appointments/setAppointmentDetails", {
             method: 'post',
             body: JSON.stringify(app),
             headers: {
@@ -47,7 +49,10 @@ export default function Cards(props) {
         });
 
         res.json().then(res => {
-            console.log(res)
+            dispatch({ type: 'SET_SNACK', payload: true });
+            setTimeout(() => {
+                history.push('/patient')
+            }, 1500);
         });
     }
     const handleClick = () => {

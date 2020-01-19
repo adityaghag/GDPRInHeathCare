@@ -1,75 +1,61 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { MenuList, MenuItem } from '@material-ui/core';
-import Auth from '../registeration and login/auth'
-
-const drawerWidth = 240;
+// import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { Context } from '../../store/Store';
+import PatientDrawer from './PatientDrawer';
+import AppointmentsCard from './AppointmentsCard';
 
 const useStyles = makeStyles(theme => ({
-
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+  root: {
+    display: 'flex',
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.primary.default,
+    padding: theme.spacing(3),
   },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar
+  Button: {
+    margin: '12px'
+  }
 }));
+function createCard() {
+  let patients = [
+    { patientId: '1', gender: 'm', age: 20, medicalHistory: 'test1' },
+    { patientId: '2', gender: 'w', age: 25, medicalHistory: 'test2' },
+    { patientId: '3', gender: 'w', age: 23, medicalHistory: 'test3' },
+    { patientId: '4', gender: 'm', age: 29, medicalHistory: 'test4' },
+    { patientId: '5', gender: 'm', age: 50, medicalHistory: 'test5' },
+  ]
 
+  let card = []
+
+  patients.map((item) => {
+    return card.push(<Grid item key={item.patientId} xs={3}><AppointmentsCard gender={item.gender} age={item.age} medicalHistory={item.medicalHistory} /></Grid>)
+  });
+
+  return card
+}
 
 export default function Patient() {
+  const [state, dispatch] = useContext(Context);
   const classes = useStyles();
+  // eslint-disable-next-line
+  const [enable, enableBtn] = useState(false);
+  const callback = (cat) => {
+    enableBtn(true)
+  }
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            HSRW Patient Dashboard
-            </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
+    < div className={classes.root} >
+      <PatientDrawer />
+      <main className={classes.content}>
         <div className={classes.toolbar} />
-        <MenuList>
-          <MenuItem component={Link} to="/patient">Home</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/booking">Booking Appointment</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/login" onClick={() => { Auth.logout() }}>Logout</MenuItem>
-        </MenuList>
-      </Drawer>
-    </React.Fragment>
+        <Grid container spacing={4}>
+          {createCard()}
+        </Grid>
+      </main>
+    </div >
   );
 }

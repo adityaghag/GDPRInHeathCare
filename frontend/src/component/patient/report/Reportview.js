@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Context } from '../../../store/Store';
+import PatientDrawer from '../PatientDrawer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,7 +69,7 @@ export default function Reportview() {
 
   return (
     <div className={classes.root}>
-      < Patient />
+      < PatientDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {

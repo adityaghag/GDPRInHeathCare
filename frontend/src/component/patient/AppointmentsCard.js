@@ -13,6 +13,11 @@ const useStyles = makeStyles(theme => ({
     card: {
         maxWidth: 300,
     },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
     title: {
         fontSize: 14,
     },
@@ -22,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Cards(props) {
+export default function AppointmentsCard(props) {
     let age = props.age;
     let gender = props.gender;
     let medicalHistory = props.medicalHistory;
