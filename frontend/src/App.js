@@ -70,18 +70,18 @@ More than 50 companies are empanelled with the Hospital for providing credit fac
 			<section id="services">
 				<div className="container">
 					<h1 className="wow zoomIn text-center" data-wow-delay="0.1s">Services</h1>
-					<h5 className="wow zoomIn text-center" data-wow-delay="0.3s">Proin eu libero nunc. Quisque at orci posuere, vestibulum metus et, pharetra augue. Vestibulum est felis, pharetra bibendum nunc ac, iaculis tempor turpis. Vivamus sed mattis neque. Morbi interdum efficitur.</h5>
+					<h5 className="wow zoomIn text-center" data-wow-delay="0.3s">HSRW Health services covers the cost of medically necessary hospital services, provided at a hospital.</h5>
 					<div className="row">
 						<div className="wow bounceInUp col-lg-3 col-md-6 col-sm-12 col-xs-12" data-wow-delay="0.1s">
 							<div className="card">
 								<div className="card-body">
-									<h5 className="card-title text-center">In hac</h5>
+									<h5 className="card-title text-center">Hospital Services</h5>
 									<p className="card-text text-center">{service_1}</p>
 									<ul>
-										<li>Nam sollicitudin ex</li>
-										<li>In fermentum, purus</li>
-										<li>Donec bibendum</li>
-										<li>Cras dolor dui</li>
+										<li>Primary care services</li>
+										<li>Mental Health</li>
+										<li>Dental Services</li>
+										<li>Nutritional counselling</li>
 									</ul>
 								</div>
 							</div>
@@ -89,13 +89,13 @@ More than 50 companies are empanelled with the Hospital for providing credit fac
 						<div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
 							<div className="card">
 								<div className="card-body">
-									<h5 className="card-title text-center">Etiam vehicula</h5>
+									<h5 className="card-title text-center">Lab</h5>
 									<p className="card-text text-center">{service_2} </p>
 									<ul>
-										<li>Fusce in neque</li>
-										<li>Pellentesque feugiat</li>
-										<li>Luctus quam</li>
-										<li>Donec malesuada</li>
+										<li>X-Ray</li>
+										<li>Radiology</li>
+										<li>Blood</li>
+										<li>Surgical</li>
 									</ul>
 								</div>
 							</div>
@@ -103,13 +103,13 @@ More than 50 companies are empanelled with the Hospital for providing credit fac
 						<div className="wow bounceInUp col-lg-3 col-md-6 col-sm-12 col-xs-12" data-wow-delay="0.6s">
 							<div className="card">
 								<div className="card-body">
-									<h5 className="card-title text-center">Integer at</h5>
+									<h5 className="card-title text-center">General Care</h5>
 									<p className="card-text text-center">{service_3}</p>
 									<ul>
-										<li>Maecenas consectetur</li>
-										<li>Mauris molestie</li>
-										<li>Fusce non placerat</li>
-										<li>Aenean a efficitur</li>
+										<li>Family Support</li>
+										<li>Genetic Counselling</li>
+										<li>Financial Services</li>
+										<li>Home Nursing Services</li>
 									</ul>
 								</div>
 							</div>
@@ -117,13 +117,13 @@ More than 50 companies are empanelled with the Hospital for providing credit fac
 						<div className="wow bounceInUp col-lg-3 col-md-6 col-sm-12 col-xs-12" data-wow-delay="0.8s">
 							<div className="card">
 								<div className="card-body">
-									<h5 className="card-title text-center">Phasellus elementum</h5>
+									<h5 className="card-title text-center">Emergency Services</h5>
 									<p className="card-text text-center">{service_4}</p>
 									<ul>
-										<li>Etiam eu vehicula</li>
-										<li>Ut sollicitudin justo</li>
-										<li>Nunc placerat elit</li>
-										<li>Aliquam ac justo</li>
+										<li>Private Ambulance</li>
+										<li>Advanced Life Support</li>
+										<li>First-Aid</li>
+										<li>Critical Care Transport</li>
 									</ul>
 								</div>
 							</div>
