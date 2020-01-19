@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Context } from '../../store/Store';
 import PatientDrawer from './PatientDrawer';
@@ -27,7 +26,7 @@ function createCard(patientsAppos) {
   let card = []
 
   patientsAppos.map((item) => {
-    return card.push(<Grid item key={item._id} xs={3}><AppointmentsCard firstName={item.doctorId.firstName} lastName={item.doctorId.lastName} cat={item.categories} day={item.day} /></Grid>)
+    return card.push(<Grid item key={item._id} xs={3}><AppointmentsCard id={item._id} firstName={item.doctorId.firstName} lastName={item.doctorId.lastName} cat={item.categories} day={item.day} /></Grid>)
   });
 
   if (card.length === 0)
@@ -62,7 +61,7 @@ export default function Patient() {
     return () => {
       dispatch({ type: 'SET_LOADING', payload: true });
     };
-  }, [dispatch]);
+  }, [dispatch, state.reload]);
 
 
 

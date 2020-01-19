@@ -10,6 +10,11 @@ const Reducer = (state, action) => {
                 ...state,
                 loading: action.payload
             };
+        case 'SET_RELOAD':
+            return {
+                ...state,
+                reload: !state.reload
+            };
         case 'SET_DOCUMENTS_DATA':
             return {
                 ...state,

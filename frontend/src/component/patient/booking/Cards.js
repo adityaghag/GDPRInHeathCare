@@ -50,9 +50,10 @@ export default function Cards(props) {
 
         res.json().then(res => {
             dispatch({ type: 'SET_SNACK', payload: true });
+            dispatch({ type: 'SET_RELOAD' });
             setTimeout(() => {
                 history.push('/patient')
-            }, 1500);
+            }, 1000);
         });
     }
     const handleClick = () => {

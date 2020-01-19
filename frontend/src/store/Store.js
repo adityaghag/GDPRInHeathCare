@@ -10,6 +10,7 @@ const initialState = {
     selectedDay: '',
     doctorData: [],
     loading: false,
+    reload: false,
     openSnack: false,
     patientAppos: []
 };

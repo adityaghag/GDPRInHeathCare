@@ -2,10 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,17 +12,12 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
+    }
 }));
 
 
 export default function Cards(props) {
-    let age = props.age;
-    let gender = props.gender;
-    let medicalHistory = props.medicalHistory;
+    let day = props.day;
 
 
     const classes = useStyles();
@@ -34,26 +26,15 @@ export default function Cards(props) {
         <Card className={classes.card}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    age: {age}
+                    You Have an Appointment on:
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    gender: {gender}
+                    {day}
                 </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    medicalHistory: {medicalHistory}
+                <Typography variant="caption" display="block" >
+                    Room: {Math.ceil(Math.random() * 10)}
                 </Typography>
-                <TextField
-                    fullWidth
-                    id="filled-textarea"
-                    label="Multiline Placeholder"
-                    placeholder="Placeholder"
-                    multiline
-                    variant="filled"
-                />
             </CardContent>
-            <CardActions>
-                <Button variant="outlined" color="primary">Save</Button>
-            </CardActions>
         </Card>
     );
 }
