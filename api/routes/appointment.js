@@ -14,6 +14,8 @@ router.post("/setAppointmentDetails", appointmentController.setAppointmentDetail
 
 router.post("/updateAppointment", appointmentController.updateAppointment);
 
+router.post("/deleteAppointment", appointmentController.deleteAppointment);
+
 
 
 module.exports = router;
