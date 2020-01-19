@@ -15,8 +15,6 @@ import { useState } from 'react';
 import { Redirect } from 'react-router-dom'
 import Auth from '../auth';
 
-//TODO Kapil please redirect the patient after success login OR show error message when login faild
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
