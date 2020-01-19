@@ -36,6 +36,7 @@ export default function Step3() {
 
             res.json().then(res => {
                 dispatch({ type: 'SET_DOCTOR_DATA', payload: res.data });
+                dispatch({ type: 'SET_LOADING', payload: true });
             });
         }
         fetchData();
