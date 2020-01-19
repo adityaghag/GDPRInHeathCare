@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/healthcare_gdpr', { useNewUrlParser:
 const patientRoutes = require('./api/routes/patients')
 const userRoutes = require('./api/routes/users');
 const documentRoutes = require('./api/routes/documents');
+const appointmentRoutes = require('./api/routes/appointment');
 
 
 app.use(morgan('dev'))
@@ -41,6 +42,8 @@ app.use((req, res, next) => {
 app.use('/patients', patientRoutes)
 app.use('/user', userRoutes);
 app.use('/documents', documentRoutes);
+app.use('/appointments', appointmentRoutes);
+
 
 
 app.use((req, res, next) => {
