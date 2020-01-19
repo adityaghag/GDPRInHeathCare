@@ -55,12 +55,14 @@ export default function Step1({ parentCallback }) {
         });
     }, [])
 
+    const labeltxt = "Pagal";
+
     return (
         <Grid container>
             <Grid item xs={12}>
                 <List className={classes.root}>
-                    <RadioGroup aria-label="category" name="category" value={value} onChange={handleChange}>
-                        {['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
+                    <RadioGroup aria-label="category" name="category" value={value} onChange={handleChange} label={labeltxt}>
+                        {['Cardiologist', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
                             const labelId = `checkbox-list-label-${value}`;
                             return (
                                 <React.Fragment key={value}>

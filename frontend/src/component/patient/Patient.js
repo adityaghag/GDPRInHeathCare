@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    backgroundColor:'#2C3531',
   },
   drawer: {
     width: drawerWidth,
@@ -24,6 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    color:"white",
+    backgroundColor:"#2C3531",
   },
   toolbar: theme.mixins.toolbar
 }));
@@ -51,7 +55,7 @@ export default function Patient() {
       >
         <div className={classes.toolbar} />
         <MenuList>
-          <MenuItem component={Link} to="/patient">Home</MenuItem>
+          <MenuItem component={Link} to="/patient" icon={<HomeRoundedIcon />}>Home</MenuItem>
         </MenuList>
         <Divider />
         <MenuList>
