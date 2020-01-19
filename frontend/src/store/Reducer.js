@@ -8,7 +8,7 @@ const Reducer = (state, action) => {
         case 'SET_LOADING':
             return {
                 ...state,
-                loading: true
+                loading: action.payload
             };
         case 'SET_DOCUMENTS_DATA':
             return {
@@ -34,6 +34,11 @@ const Reducer = (state, action) => {
             return {
                 ...state,
                 selectedCat: action.payload
+            };
+        case 'SET_DOCTOR_DATA':
+            return {
+                ...state,
+                doctorData: action.payload
             };
         default:
             return state;

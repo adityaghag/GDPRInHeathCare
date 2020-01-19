@@ -39,7 +39,7 @@ export default function Step1({ parentCallback }) {
 
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             ['Cardiologis', 'Neurosurgeon', 'Orthopedcian', 'Oncologist'].map(value => {
                 let cat = {
                     docCat: value

@@ -8,6 +8,7 @@ const initialState = {
     selectedCat: '',
     bookingStep: 1,
     selectedDay: '',
+    doctorData: [],
     loading: false
 };
 
