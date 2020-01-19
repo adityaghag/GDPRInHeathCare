@@ -43,7 +43,7 @@ export default function Step2() {
             ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].map(value => {
                 let cat = {
                     day: value,
-                    docCat: localStorage.getItem('docCat'),
+                    docCat: state.selectedCat
                 }
                 fetch("http://localhost:3001/user/doctors_by_day", {
                     method: 'post',
@@ -66,7 +66,7 @@ export default function Step2() {
         return () => {
             dispatch({ type: 'SET_LOADING', payload: false });
         };
-    }, [dispatch]);
+    }, [dispatch, state.selectedCat]);
     if (state.loading)
         return (
             <Grid container>

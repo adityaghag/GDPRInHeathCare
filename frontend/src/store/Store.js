@@ -5,6 +5,7 @@ import Reducer from './Reducer'
 const initialState = {
     doctor: [],
     docsumentsData: [],
+    selectedCat: '',
     bookingStep: 1,
     selectedDay: '',
     loading: false

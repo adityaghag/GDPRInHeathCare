@@ -30,6 +30,11 @@ const Reducer = (state, action) => {
                 ...state,
                 selectedDay: action.payload
             };
+        case 'SET_CAT':
+            return {
+                ...state,
+                selectedCat: action.payload
+            };
         default:
             return state;
     }
