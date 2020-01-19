@@ -4,6 +4,11 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import BackupRoundedIcon from '@material-ui/icons/BackupRounded';
+import BookRoundedIcon from '@material-ui/icons/BookRounded';
+import AssignmentRoundedIcon from '@material-ui/icons/AssignmentRounded';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -17,6 +22,8 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
+        backgroundColor:"#000000",
+        
     },
     drawer: {
         width: drawerWidth,
@@ -24,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        backgroundColor:"#191919",
+        color:"white",
+        fontSize: 24,
     },
     toolbar: theme.mixins.toolbar
 }));
@@ -51,23 +61,23 @@ export default function PatientDrawer() {
             >
                 <div className={classes.toolbar} />
                 <MenuList>
-                    <MenuItem component={Link} to="/patient">Home</MenuItem>
+                    <MenuItem component={Link} to="/patient"><HomeRoundedIcon />&nbsp;&nbsp;Home</MenuItem>
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
+                    <MenuItem component={Link} to="/reportupload"><BackupRoundedIcon />&nbsp;&nbsp;Upload Reports</MenuItem>
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/booking">Booking Appointment</MenuItem>
+                    <MenuItem component={Link} to="/booking"><BookRoundedIcon />&nbsp;&nbsp;Book Appointment</MenuItem>
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
+                    <MenuItem component={Link} to="/reportview"><AssignmentRoundedIcon />&nbsp;&nbsp;View Reports</MenuItem>
                 </MenuList>
                 <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/login" onClick={() => { Auth.logout() }}>Logout</MenuItem>
+                    <MenuItem component={Link} to="/login" onClick={() => { Auth.logout() }}><ExitToAppRoundedIcon />&nbsp;&nbsp;Logout</MenuItem>
                 </MenuList>
             </Drawer>
         </React.Fragment>

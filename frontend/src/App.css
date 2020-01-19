@@ -33,11 +33,11 @@
 #main {
 	width: 100%;
 	min-height: 100vh;
-	padding-top: 170px;
-	background:url(https://images.pexels.com/photos/249348/pexels-photo-249348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+	padding-top: 100px;
+	background:url(https://media.glassdoor.com/l/121545/university-of-louisville-hospital-office.jpg);
 	background-size: cover;
     background-position: center;
-    color: white;
+    color:white;
     text-align: center;
     opacity: 0.90;
     text-transform: uppercase;
@@ -84,7 +84,7 @@
 }
 
 .aboutbg {
-	background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80) center  no-repeat;
+	background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=735&q=80) center  no-repeat;
 	min-height: 450px;
 
 }
@@ -115,6 +115,4 @@
 	border:transparent;
 	background: transparent;
 }
-
-
 
