@@ -4,16 +4,17 @@ const Appointment = require("../models/appointment");
 
 exports.getAllAppointmentsOfPatient = (req, res, next) => {
     Appointment.find({
-        patientId:req.patientId
+        patientId:req.body.patientId
     })
-      .exec()
       .populate('patientId doctorId')
+      .exec()
       .then(docs => {
         if (docs.length >= 0) {
           const response = {
             count: docs.length,
             appointments: docs
           };
+          console.log("response-------",response)
             res.status(200).json(response);
           } else {
               res.status(404).json({
