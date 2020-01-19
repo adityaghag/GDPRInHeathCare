@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { makeStyles } from '@material-ui/core/styles';
 import Patient from '../Patient';
@@ -10,6 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Context } from '../../../store/Store';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,10 +36,7 @@ let rows = [];
 
 export default function Reportview() {
   const classes = useStyles();
-  const [loading, setLoading] = useState(false);
-  const [docsData, setdocsData] = useState([]);
-
-
+  const [state, dispatch] = useContext(Context);
 
 
   useEffect(() => {
@@ -58,15 +56,15 @@ export default function Reportview() {
         rows = res.document.map(row =>
           createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
         );
-        setdocsData(rows)
-        setLoading(true);
+        dispatch({ type: 'SET_DOCUMENTS_DATA', payload: rows });
+        dispatch({ type: 'SET_LOADING', payload: true });
       })
     }
     fetchData();
     return () => {
-      setLoading(false)
+      dispatch({ type: 'SET_LOADING', payload: true });
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>
@@ -74,7 +72,7 @@ export default function Reportview() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {
-          !loading ? <Loading /> :
+          !state.loading ? <Loading /> :
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -86,7 +84,7 @@ export default function Reportview() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {docsData.map(row => (
+                  {state.docsumentsData.map(row => (
                     <TableRow key={row.fileName}>
                       <TableCell component="th" scope="row">
                         {row.fileName}
