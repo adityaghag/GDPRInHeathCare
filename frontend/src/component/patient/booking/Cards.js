@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Button from '@material-ui/core/Button';
+import { Context } from '../../../store/Store';
 
 const useStyles = makeStyles({
     card: {
@@ -25,8 +26,33 @@ const useStyles = makeStyles({
 
 
 export default function Cards(props) {
+    const [state, dispatch] = useContext(Context);
     const classes = useStyles();
 
+    const fetchData = async () => {
+        let app = {
+            patientId: localStorage.getItem('userId'),
+            doctorId: props._id,
+            categories: state.selectedCat,
+            date: state.selectedDay,
+            time: '11'
+        }
+        const res = await fetch("http://localhost:3001/appointment/setAppointmentDetails", {
+            method: 'post',
+            body: JSON.stringify(app),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        res.json().then(res => {
+            console.log(res)
+        });
+    }
+    const handleClick = () => {
+        fetchData()
+    }
     return (
 
         <Card className={classes.card}>
@@ -46,7 +72,7 @@ export default function Cards(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={handleClick}>
                     Book Appointment
                 </Button>
             </CardActions>
