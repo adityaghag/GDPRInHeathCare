@@ -5,9 +5,11 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Patient from '../Patient';
 import { Context } from '../../../store/Store';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
+import './booking.css'
+import PatientDrawer from '../PatientDrawer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +37,7 @@ export default function Booking() {
 
   return (
     < div className={classes.root} >
-      <Patient />
+      <PatientDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Grid
@@ -58,7 +60,7 @@ export default function Booking() {
           spacing={2}
         >
           <Grid item xs>
-            {(state.bookingStep !== 1 && state.bookingStep !== 3) ? (
+            {(state.bookingStep !== 1 && state.bookingStep !== 4) ? (
               <Button variant="contained" color="primary" onClick={() => { dispatch({ type: 'DEC_BOOKING_STEP' }); enableBtn(false) }} className={classes.Button}>Back</Button>) :
               ''
             }
@@ -66,13 +68,11 @@ export default function Booking() {
               <Button variant="contained" color="primary" onClick={() => { dispatch({ type: 'INC_BOOKING_STEP' }); enableBtn(false) }}>Next</Button>) :
               ''
             }
-            {/* {step === 3 ? (
-              <React.Fragment>
-                <br />
-                <Button variant="contained" color="primary" onClick={() => setStep(step + 1)}>Submit</Button>
-              </React.Fragment>) :
-              ''
-            } */}
+            <Snackbar
+              open={state.openSnack}
+              TransitionComponent={Fade}
+              message='Your Appointment has been booked'
+            />
           </Grid>
         </Grid>
       </main>

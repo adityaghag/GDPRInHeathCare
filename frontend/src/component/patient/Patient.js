@@ -1,75 +1,84 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { MenuList, MenuItem } from '@material-ui/core';
-import Auth from '../registeration and login/auth'
-
-const drawerWidth = 240;
+// import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { Context } from '../../store/Store';
+import PatientDrawer from './PatientDrawer';
+import AppointmentsCard from './AppointmentsCard';
+import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
-
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+  root: {
+    display: 'flex',
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.primary.default,
+    padding: theme.spacing(3),
   },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar
+  Button: {
+    margin: '12px'
+  }
 }));
+function createCard(patientsAppos) {
 
+
+  let card = []
+
+  patientsAppos.map((item) => {
+    return card.push(<Grid item key={item._id} xs={3}><AppointmentsCard firstName={item.doctorId.firstName} lastName={item.doctorId.lastName} cat={item.categories} day={item.day} /></Grid>)
+  });
+
+  if (card.length === 0)
+    return <div style={{ width: '100%', textAlign: 'center' }}><h2>You have no upcoming Appointments</h2></div>
+  return card
+}
 
 export default function Patient() {
+  const [state, dispatch] = useContext(Context);
   const classes = useStyles();
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const patientId = {
+        patientId: localStorage.getItem('userId')
+      }
+      const res = await fetch("http://localhost:3001/appointments/getAllAppointmentsOfPatient", {
+        method: 'post',
+        body: JSON.stringify(patientId),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      res.json().then(res => {
+        dispatch({ type: 'SET_PATIENT_APPOS', payload: res.appointments });
+        dispatch({ type: 'SET_LOADING', payload: false });
+      })
+    }
+    fetchData();
+    return () => {
+      dispatch({ type: 'SET_LOADING', payload: true });
+    };
+  }, [dispatch]);
+
+
+
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            HSRW Patient Dashboard
-            </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
+    < div className={classes.root} >
+      <PatientDrawer />
+      <main className={classes.content}>
         <div className={classes.toolbar} />
-        <MenuList>
-          <MenuItem component={Link} to="/patient">Home</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/reportupload">Upload Reports</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/booking">Booking Appointment</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/reportview">View Reports</MenuItem>
-        </MenuList>
-        <Divider />
-        <MenuList>
-          <MenuItem component={Link} to="/login" onClick={() => { Auth.logout() }}>Logout</MenuItem>
-        </MenuList>
-      </Drawer>
-    </React.Fragment>
+        {
+          state.loading ? <Loading /> :
+            <Grid container spacing={2}>
+              {createCard(state.patientAppos)}
+            </Grid>
+        }
+      </main>
+    </div >
   );
 }

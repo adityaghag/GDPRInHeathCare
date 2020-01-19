@@ -9,7 +9,9 @@ const initialState = {
     bookingStep: 1,
     selectedDay: '',
     doctorData: [],
-    loading: false
+    loading: false,
+    openSnack: false,
+    patientAppos: []
 };
 
 const Store = ({ children }) => {

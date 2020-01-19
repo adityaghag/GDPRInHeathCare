@@ -4,12 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { DropzoneArea } from 'material-ui-dropzone';
-import Patient from '../Patient';
+import PatientDrawer from '../PatientDrawer';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-// import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
@@ -59,14 +58,6 @@ const DialogContent = withStyles(theme => ({
   },
 }))(MuiDialogContent);
 
-// const DialogActions = withStyles(theme => ({
-//   root: {
-//     margin: 0,
-//     padding: theme.spacing(1),
-//   },
-// }))(MuiDialogActions);
-
-
 
 export default function Reportupload() {
   const classes = useStyles();
@@ -95,7 +86,6 @@ export default function Reportupload() {
   }
 
   const uploadDoc = () => {
-    // const fileInput = document.querySelector('#your-file-input') ;
     const patientId = localStorage.getItem('userId');
     console.log(".---patientId---", patientId)
     const formData = new FormData();
@@ -103,7 +93,6 @@ export default function Reportupload() {
     formData.append('fileName', form.fileName)
     formData.append('comments', form.comments)
     formData.append('patientId', patientId)
-    // console.log("eeeee", formData)
     submitForm(formData)
   };
 
@@ -125,7 +114,7 @@ export default function Reportupload() {
 
   return (
     <div className={classes.root}>
-      < Patient />
+      < PatientDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <form onSubmit={uploadDoc} className={classes.form} noValidate>
