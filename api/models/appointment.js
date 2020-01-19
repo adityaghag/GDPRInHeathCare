@@ -6,7 +6,8 @@ const appointmentSchema = mongoose.Schema({
     doctorId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     date:Date,
     categories:String,
-    time:Date
+    time:Date,
+    day:String
 });
 
 module.exports = mongoose.model('Appointment',appointmentSchema)

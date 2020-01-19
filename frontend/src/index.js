@@ -5,12 +5,15 @@ import Routes from "./Routes";
 import { Router } from "react-router-dom";
 import createHistory from 'history/createBrowserHistory';
 import * as serviceWorker from './serviceWorker';
+import Store from './store/Store'
 
 const history = createHistory();
 
 ReactDOM.render(
   <Router history={history}>
-    <Routes />
+    <Store>
+      <Routes />
+    </Store>
   </Router>,
   document.getElementById("root")
 )

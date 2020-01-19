@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { makeStyles } from '@material-ui/core/styles';
 import Patient from '../Patient';
@@ -10,6 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Context } from '../../../store/Store';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,39 +31,40 @@ function createData(id, fileName, date, comments, document) {
   return { id, fileName, date, comments, document };
 }
 
+
 let rows = [];
 
 export default function Reportview() {
   const classes = useStyles();
-  const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line
-  const [docsData, setdocsData] = useState({});
+  const [state, dispatch] = useContext(Context);
 
-  const fetchData = async () => {
-    const patientId = {
-      patientId: localStorage.getItem('userId')
-    }
-    fetch("http://localhost:3001/documents/getAllDoc", {
-      method: 'post',
-      body: JSON.stringify(patientId),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      return response.json();
-    }).then(res => {
-      setdocsData(res.document);
-      rows = res.document.map(row =>
-        createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
-      );
-      setLoading(true);
-    });
-  }
 
   useEffect(() => {
+    const fetchData = async () => {
+      const patientId = {
+        patientId: localStorage.getItem('userId')
+      }
+      const res = await fetch("http://localhost:3001/documents/getAllDoc", {
+        method: 'post',
+        body: JSON.stringify(patientId),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      res.json().then(res => {
+        rows = res.document.map(row =>
+          createData(row.id, row.fileName, row.createdDate.toString().substring(0, 10), row.comments, row.documentFile)
+        );
+        dispatch({ type: 'SET_DOCUMENTS_DATA', payload: rows });
+        dispatch({ type: 'SET_LOADING', payload: true });
+      })
+    }
     fetchData();
-  }, []);
+    return () => {
+      dispatch({ type: 'SET_LOADING', payload: true });
+    };
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>
@@ -70,7 +72,7 @@ export default function Reportview() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {
-          !loading ? <Loading /> :
+          !state.loading ? <Loading /> :
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -82,8 +84,8 @@ export default function Reportview() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
+                  {state.docsumentsData.map(row => (
+                    <TableRow key={row.fileName}>
                       <TableCell component="th" scope="row">
                         {row.fileName}
                       </TableCell>

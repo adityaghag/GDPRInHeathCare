@@ -4,8 +4,9 @@ const Appointment = require("../models/appointment");
 
 exports.getAllAppointmentsOfPatient = (req, res, next) => {
     Appointment.find({
-        patientId:req.patientId
+        patientId:req.body.patientId
     })
+      .populate('patientId doctorId')
       .exec()
       .then(docs => {
         if (docs.length >= 0) {
@@ -13,6 +14,7 @@ exports.getAllAppointmentsOfPatient = (req, res, next) => {
             count: docs.length,
             appointments: docs
           };
+          console.log("response-------",response)
             res.status(200).json(response);
           } else {
               res.status(404).json({
@@ -83,18 +85,19 @@ exports.getAppointmentDetails = (req, res, next) => {
 exports.setAppointmentDetails = (req, res, next) => { 
   const appointment = new Appointment({
     _id: new mongoose.Types.ObjectId(),
-    patientId: req.patientId,
-    doctorId: req.doctorId,
-    categories: req.categories,
-    date:req.date,
-    time:req.time
+    patientId: req.body.patientId,
+    doctorId: req.body.doctorId,
+    categories: req.body.categories,
+    date:req.body.date,
+    time:req.body.time,
+    day:req.body.day
   });
   appointment
     .save()
     .then(result => {
       console.log(result);
       res.status(201).json({
-        message: "User created"
+        message: "Appoinment Created Successfully"
       });
     })
     .catch(err => {
