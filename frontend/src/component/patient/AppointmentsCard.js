@@ -28,9 +28,11 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function AppointmentsCard(props) {
-    let age = props.age;
-    let gender = props.gender;
-    let medicalHistory = props.medicalHistory;
+    let day = props.day;
+    let cat = props.cat;
+    let firstName = props.firstName;
+    let lastName = props.lastName;
+
 
 
     const classes = useStyles();
@@ -38,26 +40,18 @@ export default function AppointmentsCard(props) {
     return (
         <Card className={classes.card}>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    age: {age}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                    gender: {gender}
+                <Typography variant="h6" gutterBottom>
+                    You have an Appointment on: {day}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    medicalHistory: {medicalHistory}
+                    Your Appointmen by Dr. {lastName}, {firstName}.
                 </Typography>
-                <TextField
-                    fullWidth
-                    id="filled-textarea"
-                    label="Multiline Placeholder"
-                    placeholder="Placeholder"
-                    multiline
-                    variant="filled"
-                />
+                <Typography color="textSecondary" variant="subtitle2">
+                    Appointment Category: {cat}
+                </Typography>
             </CardContent>
             <CardActions>
-                <Button variant="outlined" color="primary">Save</Button>
+
             </CardActions>
         </Card>
     );

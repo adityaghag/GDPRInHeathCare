@@ -5,7 +5,6 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Patient from '../Patient';
 import { Context } from '../../../store/Store';
 import Snackbar from '@material-ui/core/Snackbar';
 import Fade from '@material-ui/core/Fade';
@@ -61,7 +60,7 @@ export default function Booking() {
           spacing={2}
         >
           <Grid item xs>
-            {(state.bookingStep !== 1 && state.bookingStep !== 3) ? (
+            {(state.bookingStep !== 1 && state.bookingStep !== 4) ? (
               <Button variant="contained" color="primary" onClick={() => { dispatch({ type: 'DEC_BOOKING_STEP' }); enableBtn(false) }} className={classes.Button}>Back</Button>) :
               ''
             }

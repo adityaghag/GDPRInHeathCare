@@ -63,7 +63,7 @@ export default function Reportview() {
     }
     fetchData();
     return () => {
-      dispatch({ type: 'SET_LOADING', payload: true });
+      dispatch({ type: 'SET_LOADING', payload: false });
     };
   }, [dispatch]);
 

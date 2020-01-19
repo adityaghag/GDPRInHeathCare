@@ -45,6 +45,11 @@ const Reducer = (state, action) => {
                 ...state,
                 openSnack: action.payload
             };
+        case 'SET_PATIENT_APPOS':
+            return {
+                ...state,
+                patientAppos: action.payload
+            };
         default:
             return state;
     }

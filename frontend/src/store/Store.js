@@ -10,7 +10,8 @@ const initialState = {
     selectedDay: '',
     doctorData: [],
     loading: false,
-    openSnack: false
+    openSnack: false,
+    patientAppos: []
 };
 
 const Store = ({ children }) => {

@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Context } from '../../store/Store';
 import PatientDrawer from './PatientDrawer';
 import AppointmentsCard from './AppointmentsCard';
+import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,41 +21,63 @@ const useStyles = makeStyles(theme => ({
     margin: '12px'
   }
 }));
-function createCard() {
-  let patients = [
-    { patientId: '1', gender: 'm', age: 20, medicalHistory: 'test1' },
-    { patientId: '2', gender: 'w', age: 25, medicalHistory: 'test2' },
-    { patientId: '3', gender: 'w', age: 23, medicalHistory: 'test3' },
-    { patientId: '4', gender: 'm', age: 29, medicalHistory: 'test4' },
-    { patientId: '5', gender: 'm', age: 50, medicalHistory: 'test5' },
-  ]
+function createCard(patientsAppos) {
+
 
   let card = []
 
-  patients.map((item) => {
-    return card.push(<Grid item key={item.patientId} xs={3}><AppointmentsCard gender={item.gender} age={item.age} medicalHistory={item.medicalHistory} /></Grid>)
+  patientsAppos.map((item) => {
+    return card.push(<Grid item key={item._id} xs={3}><AppointmentsCard firstName={item.doctorId.firstName} lastName={item.doctorId.lastName} cat={item.categories} day={item.day} /></Grid>)
   });
 
+  if (card.length === 0)
+    return <div style={{ width: '100%', textAlign: 'center' }}><h2>You have no upcoming Appointments</h2></div>
   return card
 }
 
 export default function Patient() {
   const [state, dispatch] = useContext(Context);
   const classes = useStyles();
-  // eslint-disable-next-line
-  const [enable, enableBtn] = useState(false);
-  const callback = (cat) => {
-    enableBtn(true)
-  }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const patientId = {
+        patientId: localStorage.getItem('userId')
+      }
+      const res = await fetch("http://localhost:3001/appointments/getAllAppointmentsOfPatient", {
+        method: 'post',
+        body: JSON.stringify(patientId),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      res.json().then(res => {
+        dispatch({ type: 'SET_PATIENT_APPOS', payload: res.appointments });
+        dispatch({ type: 'SET_LOADING', payload: false });
+      })
+    }
+    fetchData();
+    return () => {
+      dispatch({ type: 'SET_LOADING', payload: true });
+    };
+  }, [dispatch]);
+
+
+
 
   return (
     < div className={classes.root} >
       <PatientDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Grid container spacing={4}>
-          {createCard()}
-        </Grid>
+        {
+          state.loading ? <Loading /> :
+            <Grid container spacing={2}>
+              {createCard(state.patientAppos)}
+            </Grid>
+        }
       </main>
     </div >
   );
