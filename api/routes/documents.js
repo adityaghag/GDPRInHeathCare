@@ -36,5 +36,7 @@ router.post("/uploadDocument", upload.single('documentFile'), documentController
 
 router.post("/getAllDoc", documentController.getAllDocumentsOfPatient);
 
+router.post("/addCommentsToDocument", documentController.addCommentsToDocument);
+
 
 module.exports = router;
