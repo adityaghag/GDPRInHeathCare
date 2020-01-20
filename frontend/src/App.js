@@ -42,10 +42,6 @@ function App() {
 			<section id="main">
 				<div className="container-fluid">
 					<h1>A National Leader in Healthcare Research</h1>
-					{top}
-					<h3>Women's Choice Award 2019 Winner</h3>
-					<br></br>
-					<br></br>
 					<a href="#about"><button type="button" className="btn btn-lg btn-dark shadow-sm p-3 mb-5 rounded"> Know More</button></a>
 				</div>
 			</section>
