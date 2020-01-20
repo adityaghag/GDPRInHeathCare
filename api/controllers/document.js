@@ -8,6 +8,7 @@ var cron = require('node-cron');
 const Document = require("../models/document");
 const Appointment = require("../models/appointment");
 
+
 const redactor = new SyncRedactor({
   builtInRedactors: {
     digits: {
@@ -142,8 +143,8 @@ exports.addCommentsToDocument = (req, res, next) => {
         throw err;
     }
     else{
-     let preDoc=data;
-     preDoc.concat(req.body.comments)
+     let preDoc=data.toString();
+     preDoc.concat("%%%%%%%%%%%%%%%")
      console.log("preDocpreDocpreDoc",preDoc)
     }
     
@@ -164,6 +165,34 @@ exports.addCommentsToDocument = (req, res, next) => {
         });
       })
 };
+
+exports.uploadDocumentByDoc = (req, res, next) => {
+  Document.find({
+    _id:req.body.docId
+})
+  .exec()
+  .then(docs => {
+    if (docs.length >= 0) {
+      fs.unlink(docs[0].documentFile,function(){})
+      mammoth.extractRawText({path: req.file.path})
+        .then(function(result){
+        fs.unlink(req.file.path,function(){})
+        fs.writeFile(docs[0].documentFile, result.value, ()=>{});
+    })
+      } else {
+          res.status(404).json({
+              message: 'No entries found'
+          });
+      }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  })
+};
+
 
 cron.schedule('* * * 28,29,30 * *', () => {
   exports.deleteAppointment = (req, res, next) => {
