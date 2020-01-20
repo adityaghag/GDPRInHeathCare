@@ -48,7 +48,7 @@ exports.getDocumentsForDoctors = (req, res, next) => {
   Document.find({
     doctorId: req.body.doctorId
   })
-    .exec()
+    .exec().populate('patientId')
     .then(docs => {
       if (docs.length >= 0) {
         const response = {
