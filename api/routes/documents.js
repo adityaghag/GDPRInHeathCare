@@ -42,6 +42,7 @@ router.post("/addCommentsToDocument", documentController.addCommentsToDocument);
 
 router.post("/getDocumentsForDoctors", documentController.getDocumentsForDoctors);
 
+router.post("/addCommentsByDoc", documentController.addCommentsByDoc);
 
 
 module.exports = router;

@@ -208,6 +208,37 @@ exports.uploadDocumentByDoc = (req, res, next) => {
   })
 };
 
+exports.addCommentsByDoc = (req, res, next) => {
+  Document.find({
+    _id:req.body.docId
+})
+  .exec()
+  .then(docs => {
+    console.log("Documents",docs)
+    if (docs.length >= 0) {
+      fs.readFile(docs[0].documentFile,'utf8', function (err, data) {
+        console.log("data",data)
+        let testData=data.toString();
+        let commentAdded= "Comment :" + req.body.comments
+        testData=testData.concat(commentAdded);
+        console.log("testDatatestDatatestData",testData)
+        fs.unlink(docs[0].documentFile,function(){})
+        fs.writeFile(docs[0].documentFile, testData, ()=>{});
+    });
+      } else {
+          res.status(404).json({
+              message: 'No entries found'
+          });
+      }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  })
+};
+
 
 cron.schedule('* * * 28,29,30 * *', () => {
   exports.deleteAppointment = (req, res, next) => {
