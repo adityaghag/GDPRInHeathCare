@@ -38,5 +38,8 @@ router.post("/getAllDoc", documentController.getAllDocumentsOfPatient);
 
 router.post("/addCommentsToDocument", documentController.addCommentsToDocument);
 
+router.post("/getDocumentsForDoctors", documentController.getDocumentsForDoctors);
+
+
 
 module.exports = router;

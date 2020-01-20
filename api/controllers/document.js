@@ -43,9 +43,9 @@ exports.getAllDocumentsOfPatient = (req, res, next) => {
       })
 };
 
-exports.getAllDocumentsOfDoctors = (req, res, next) => {
+exports.getDocumentsForDoctors = (req, res, next) => {
   Document.find({
-    doctorId: req.doctorId
+    doctorId: req.body.doctorId
   })
     .exec()
     .then(docs => {
@@ -137,13 +137,17 @@ exports.addCommentsToDocument = (req, res, next) => {
         if (docs.length >= 0) {
           console.log("------docs",docs)
           var content;
-fs.readFile('./Index.html', function read(err, data) {
+  fs.readFile("./"+docs[0].documentFile,'utf8',function read(err, data) {
     if (err) {
         throw err;
     }
-    content = data;
+    else{
+     let preDoc=data;
+     preDoc.concat(req.body.comments)
+     console.log("preDocpreDocpreDoc",preDoc)
+    }
+    
 });
-console.log(content);
           res.status(200).json({
                   message: "Comment Added"
                 });
