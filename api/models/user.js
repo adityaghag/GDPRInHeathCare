@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
     specialisation: String,
     numberOfYearOfExperience: Number,
     patientDoc: { type: String },
-    doctorsId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     accessToken: {
         type: String,
         // index: true

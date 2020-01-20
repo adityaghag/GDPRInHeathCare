@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const Appointment = require("../models/appointment");
+const Document = require("../models/document");
+const User = require("../models/user");
+
 
 exports.getAllAppointmentsOfPatient = (req, res, next) => {
   Appointment.find({
@@ -95,8 +98,28 @@ exports.setAppointmentDetails = (req, res, next) => {
     .save()
     .then(result => {
       console.log(result);
-      res.status(201).json({
-        message: "Appoinment Created Successfully"
+      Document.update({ patientId: req.body.patientId }, { doctorId: req.body.doctorId, })
+      .exec()
+      .then(result => {
+        User.update({ _id: req.body.patientId }, { doctorId: req.body.doctorId, })
+        .exec()
+        .then(result => {
+          res.status(200).json({
+            message: "user added"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
       });
     })
     .catch(err => {
