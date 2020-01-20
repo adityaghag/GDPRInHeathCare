@@ -173,10 +173,10 @@ exports.uploadDocumentByDoc = (req, res, next) => {
   .exec()
   .then(docs => {
     if (docs.length >= 0) {
-      fs.unlink("./"+docs[0].documentFile,function(){})
       mammoth.extractRawText({path: req.file.path})
         .then(function(result){
         fs.unlink(req.file.path,function(){})
+        fs.unlink(docs[0].documentFile,function(){})
         fs.writeFile(docs[0].documentFile, result.value, ()=>{});
         Document.update({ _id: req.body.docId }, { comments: req.body.comments })
         .exec()
