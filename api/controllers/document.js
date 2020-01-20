@@ -172,15 +172,17 @@ exports.uploadDocumentByDoc = (req, res, next) => {
 })
   .exec()
   .then(docs => {
+    console.log("Documents",docs)
     if (docs.length >= 0) {
-      mammoth.extractRawText({path: req.file.path})
-        .then(function(result){
+      fs.readFile(req.file.path,'utf8', function (err, data) {
         fs.unlink(req.file.path,function(){})
         fs.unlink(docs[0].documentFile,function(){})
-        fs.writeFile(docs[0].documentFile, result.value, ()=>{});
+        fs.writeFile(docs[0].documentFile, data, ()=>{});
         Document.update({ _id: req.body.docId }, { comments: req.body.comments })
         .exec()
         .then(result => {
+          console.log("Documresultents",result)
+
             res.status(200).json({
             message: "Doc Uploaded"
         });
@@ -191,7 +193,7 @@ exports.uploadDocumentByDoc = (req, res, next) => {
         error: err
       });
       });
-    })
+    });
       } else {
           res.status(404).json({
               message: 'No entries found'
