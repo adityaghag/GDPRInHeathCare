@@ -8,7 +8,6 @@ import patient from './component/patient/Patient';
 import reportview from './component/patient/report/Reportview';
 import reportupload from './component/patient/report/Reportupload';
 import doctor from './component/doctor/Doctor';
-import patientinfo from './component/doctor/Patientinfo';
 import lab from './component/lab/Lab';
 import pendingtests from './component/lab/Pendingtests';
 import BookingAppointment from './component/lab/BookingAppointment';
@@ -20,6 +19,8 @@ import registersuccess from './component/registeration and login/patient/Registe
 import NotFound from './NotFound';
 import App from "./App";
 import ProtectedRoute from "./Protected.route";
+import DocReportView from "./component/doctor/DocReportView";
+import DocUpload from "./component/doctor/DocUpload";
 
 const Routes = () => {
 
@@ -36,7 +37,8 @@ const Routes = () => {
                 <ProtectedRoute path="/reportview" component={reportview} />
                 <ProtectedRoute path="/reportupload" component={reportupload} />
                 <ProtectedRoute path="/doctor" component={doctor} />
-                <ProtectedRoute path="/patientinfo" component={patientinfo} />
+                <ProtectedRoute path="/docreportview" component={DocReportView} />
+                <ProtectedRoute path="/docupload" component={DocUpload} />
                 <ProtectedRoute path="/lab" component={lab} />
                 <ProtectedRoute path="/pendingtests" component={pendingtests} />
                 <ProtectedRoute path="/testresults" component={testresults} />

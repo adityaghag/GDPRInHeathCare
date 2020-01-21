@@ -18,37 +18,37 @@ const redactor = new SyncRedactor({
 });
 
 exports.getAllDocumentsOfPatient = (req, res, next) => {
-  console.log("req.patientId",req.body.patientId)
+  console.log("req.patientId", req.body.patientId)
   Document.find({
-        patientId:req.body.patientId
-    })
-      .exec()
-      .then(docs => {
-        if (docs.length >= 0) {
-          const response = {
-            count: docs.length,
-            document: docs
-          };
-            res.status(200).json(response);
-          } else {
-              res.status(404).json({
-                  message: 'No entries found'
-              });
-          }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+    patientId: req.body.patientId
+  })
+    .exec()
+    .then(docs => {
+      if (docs.length >= 0) {
+        const response = {
+          count: docs.length,
+          document: docs
+        };
+        res.status(200).json(response);
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
         });
-      })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    })
 };
 
 exports.getDocumentsForDoctors = (req, res, next) => {
   Document.find({
     doctorId: req.body.doctorId
-  })
-    .exec().populate('patientId')
+  }).populate('patientId')
+    .exec()
     .then(docs => {
       if (docs.length >= 0) {
         const response = {
@@ -92,25 +92,25 @@ exports.updateDocument = (req, res, next) => {
 };
 
 exports.uploadDocument = (req, res, next) => {
-  console.log("----++++++----",req.file)
-  mammoth.extractRawText({path: req.file.path})
-    .then(function(result){
-        var text = result.value; // The raw text 
-        console.log(text);
-        const redactedText = redactor.redact(text);
-        console.log(redactedText);
-        fs.unlink(req.file.path,function(){
-        })
-        fs.writeFile('./uploads/'+ req.body.patientId + '_' + req.file.filename + '', redactedText, ()=>{});
-        
-      let docPath='uploads/'+ req.body.patientId + '_' + req.file.filename + ''
+  console.log("----++++++----", req.file)
+  mammoth.extractRawText({ path: req.file.path })
+    .then(function (result) {
+      var text = result.value; // The raw text 
+      console.log(text);
+      const redactedText = redactor.redact(text);
+      console.log(redactedText);
+      fs.unlink(req.file.path, function () {
+      })
+      fs.writeFile('./uploads/' + req.body.patientId + '_' + req.file.filename + '', redactedText, () => { });
+
+      let docPath = 'uploads/' + req.body.patientId + '_' + req.file.filename + ''
       const document = new Document({
-      _id: new mongoose.Types.ObjectId(),
-      comments: req.body.comments,
-      fileName: req.body.fileName,
-      documentFile: docPath,
-      patientId:req.body.patientId,
-      createdDate:new Date()
+        _id: new mongoose.Types.ObjectId(),
+        comments: req.body.comments,
+        fileName: req.body.fileName,
+        documentFile: docPath,
+        patientId: req.body.patientId,
+        createdDate: new Date()
       });
       document
         .save()
@@ -131,112 +131,114 @@ exports.uploadDocument = (req, res, next) => {
 
 exports.addCommentsToDocument = (req, res, next) => {
   Document.find({
-        patientId:req.body.patientId
-    })
-      .exec()
-      .then(docs => {
-        if (docs.length >= 0) {
-          console.log("------docs",docs)
-          var content;
-  fs.readFile("./"+docs[0].documentFile,'utf8',function read(err, data) {
-    if (err) {
-        throw err;
-    }
-    else{
-     let preDoc=data.toString();
-     preDoc.concat("%%%%%%%%%%%%%%%")
-     console.log("preDocpreDocpreDoc",preDoc)
-    }
-    
-});
-          res.status(200).json({
-                  message: "Comment Added"
-                });
-          } else {
-              res.status(404).json({
-                  message: 'No entries found'
-              });
+    patientId: req.body.patientId
+  })
+    .exec()
+    .then(docs => {
+      if (docs.length >= 0) {
+        console.log("------docs", docs)
+        var content;
+        fs.readFile("./" + docs[0].documentFile, 'utf8', function read(err, data) {
+          if (err) {
+            throw err;
           }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+          else {
+            let preDoc = data.toString();
+            preDoc.concat("%%%%%%%%%%%%%%%")
+            console.log("preDocpreDocpreDoc", preDoc)
+          }
+
         });
-      })
+        res.status(200).json({
+          message: "Comment Added"
+        });
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    })
 };
 
 exports.uploadDocumentByDoc = (req, res, next) => {
   Document.find({
-    _id:req.body.docId
-})
-  .exec()
-  .then(docs => {
-    console.log("Documents",docs)
-    if (docs.length >= 0) {
-      fs.readFile(req.file.path,'utf8', function (err, data) {
-        fs.unlink(req.file.path,function(){})
-        fs.unlink(docs[0].documentFile,function(){})
-        fs.writeFile(docs[0].documentFile, data, ()=>{});
-        Document.update({ _id: req.body.docId }, { comments: req.body.comments })
-        .exec()
-        .then(result => {
-          console.log("Documresultents",result)
+    _id: req.body.docId
+  })
+    .exec()
+    .then(docs => {
+      console.log("Documents", docs)
+      if (docs.length >= 0) {
+        fs.readFile(req.file.path, 'utf8', function (err, data) {
+          fs.unlink(req.file.path, function () { })
+          fs.unlink(docs[0].documentFile, function () { })
+          fs.writeFile(docs[0].documentFile, data, () => { });
+          Document.update({ _id: req.body.docId }, { comments: req.body.comments })
+            .exec()
+            .then(result => {
+              console.log("Documresultents", result)
 
-            res.status(200).json({
-            message: "Doc Uploaded"
+              res.status(200).json({
+                message: "Doc Uploaded"
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({
+                error: err
+              });
+            });
         });
-      })
-        .catch(err => {
-        console.log(err);
-        res.status(500).json({
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
         error: err
       });
-      });
-    });
-      } else {
-          res.status(404).json({
-              message: 'No entries found'
-          });
-      }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
-    });
-  })
+    })
 };
 
 exports.addCommentsByDoc = (req, res, next) => {
   Document.find({
-    _id:req.body.docId
-})
-  .exec()
-  .then(docs => {
-    console.log("Documents",docs)
-    if (docs.length >= 0) {
-      fs.readFile(docs[0].documentFile,'utf8', function (err, data) {
-        console.log("data",data)
-        let testData=data.toString();
-        let commentAdded= "Comment :" + req.body.comments
-        testData=testData.concat(commentAdded);
-        console.log("testDatatestDatatestData",testData)
-        fs.unlink(docs[0].documentFile,function(){})
-        fs.writeFile(docs[0].documentFile, testData, ()=>{});
-    });
+    _id: req.body.docId
+  })
+    .exec()
+    .then(docs => {
+      console.log("Documents", docs)
+      if (docs.length >= 0) {
+        fs.readFile(docs[0].documentFile, 'utf8', function (err, data) {
+          console.log("data", data)
+          let testData = data.toString();
+          let commentAdded = "Comment :" + req.body.comments
+          testData = testData.concat(commentAdded);
+          console.log("testDatatestDatatestData", testData)
+          fs.unlink(docs[0].documentFile, function () {
+            fs.writeFile(docs[0].documentFile, testData, () => { });
+          })
+          // fs.writeFile(docs[0].documentFile, testData, () => { });
+        });
       } else {
-          res.status(404).json({
-              message: 'No entries found'
-          });
+        res.status(404).json({
+          message: 'No entries found'
+        });
       }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
-    });
-  })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    })
 };
 
 
@@ -247,28 +249,28 @@ cron.schedule('* * * 28,29,30 * *', () => {
       .exec()
       .then(result => {
         Appointment.remove({ patientId: id })
-      .exec()
-      .then(result => {
-        User.remove({ _id: id })
-        .exec()
-        .then(result => {
-          res.status(201).json({
-            message: "All data is deleted of user"
+          .exec()
+          .then(result => {
+            User.remove({ _id: id })
+              .exec()
+              .then(result => {
+                res.status(201).json({
+                  message: "All data is deleted of user"
+                });
+              })
+              .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                  error: err
+                });
+              });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({
+              error: err
+            });
           });
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json({
-            error: err
-          });
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
       })
       .catch(err => {
         console.log(err);

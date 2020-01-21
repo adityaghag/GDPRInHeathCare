@@ -58,8 +58,13 @@ export default function DoctorDrawer() {
                 <MenuList>
                     <MenuItem component={Link} to="/doctor">Home</MenuItem>
                 </MenuList>
+                <Divider />
                 <MenuList>
-                    <MenuItem component={Link} to="/patientinfo">Patient Information</MenuItem>
+                    <MenuItem component={Link} to="/docreportview">Patient Reports</MenuItem>
+                </MenuList>
+                <Divider />
+                <MenuList>
+                    <MenuItem component={Link} to="/DocUpload">Add Medical Prescription</MenuItem>
                 </MenuList>
                 <Divider />
                 <MenuList>

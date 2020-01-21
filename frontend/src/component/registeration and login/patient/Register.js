@@ -76,13 +76,11 @@ export default function Register() {
           'Content-Type': 'application/json'
         }
       }).then(res => {
-        //TODO : Kapil please redirect the user after the registration.
         console.log(res);
         setRedirect(true)
       });
     }
     else {
-      //TODO show error message
       console.log('error')
     }
 
@@ -358,7 +356,7 @@ export default function Register() {
               fullWidth
               variant="outlined"
               className={classes.submit}
-              disabled={!(form.consent && form.terms)}
+            // disabled={!(form.consent && form.terms)}
             >
               Register
           </Button>

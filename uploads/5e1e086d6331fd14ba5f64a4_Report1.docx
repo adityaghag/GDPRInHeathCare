@@ -1,0 +1,39 @@
+HSRW Hopsital
+
+EMAIL_ADDRESS
+
+Dr. PERSON_NAME Stone, M.D.
+
+Physician.
+
+PHONE_NUMBER
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Prescription Number : 31856728
+
+Date: 04/15/2017
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+[Paracetamol, 500mg, Once A Day]
+
+[iBuprofen, 600mg, Thrice A Day, After Meal] 
+
+[Naproxen Sodium, 500mg, Once A Day]
+
+
+
+Name: Mr.PERSON_NAME
+
+Gender:M
+
+Age: 22
+
+Address: STREET_ADDRESS Duisburg,ZIPCODE
+
+Contact Number:PHONE_NUMBER
+
+Email address:EMAIL_ADDRESS
+
+Comment :doctor addd new comment

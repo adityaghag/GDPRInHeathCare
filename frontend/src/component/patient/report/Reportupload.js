@@ -73,6 +73,7 @@ export default function Reportupload() {
   };
   const handleClose = () => {
     setOpen(false);
+    uploadDoc()
   };
 
   const submitForm = (data) => {
@@ -158,7 +159,7 @@ export default function Reportupload() {
           </Grid>
           <br></br>
           <Button
-            type="submit"
+            // type="submit"
             fullWidth
             variant="outlined"
             className={classes.submit}

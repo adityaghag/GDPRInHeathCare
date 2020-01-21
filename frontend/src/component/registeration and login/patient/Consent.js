@@ -53,10 +53,12 @@ const DialogActions = withStyles(theme => ({
 export default function Consent() {
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (e) => {
+        e.preventDefault()
         setOpen(true);
     };
-    const handleClose = () => {
+    const handleClose = (e) => {
+        e.preventDefault()
         setOpen(false);
     };
 
@@ -85,15 +87,9 @@ export default function Consent() {
                             <li>In order to revoke consent at any given time is in accordance with the <b>Art.7 Para 3</b> of GDPR. As a result, we are no longer allowed to continue processing data based on the consent of the future and to complain to supervisory authority in accordance with <b>Art. 77</b> GDPR</li>
                             <li>You have the right to object the processing of your personal data in accordance with <b>Art.21</b> GDPR provided there are reason for this arising from particular situation or the objection is directed against advertising. In the latter case you have the general right to object which will implement without specifying a situation. If you would like to exercise your right of withdrawal or objection.</li>
                             <li>We take necessary technical and organizational security measures to protect personal data from loss and misuse. In this way your data is stored in a secure operating environment that is not access to the public. In some situation your personal data is encrypted, this means that communication between your computer and our servers takes place using a recognized encryption process if your browser supports TLS.</li>
-                        </ul> 
+                        </ul>
 
-
-
-
-
-
-
-          </Typography>
+                    </Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose} color="primary">

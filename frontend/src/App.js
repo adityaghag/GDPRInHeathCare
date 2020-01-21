@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartbeat, faHome, faInfo, faUser, faProcedures, faHospital, faHospitalSymbol, faStethoscope, faAmbulance, faAward } from '@fortawesome/free-solid-svg-icons';
+import { faHeartbeat, faHome, faInfo, faUser, faProcedures, faHospital, faHospitalSymbol, faStethoscope, faAmbulance } from '@fortawesome/free-solid-svg-icons';
 import WOW from 'wow.js';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
@@ -17,7 +17,6 @@ const service_1 = <FontAwesomeIcon icon={faHospital} size='5x' />
 const service_2 = <FontAwesomeIcon icon={faHospitalSymbol} size='5x' />
 const service_3 = <FontAwesomeIcon icon={faStethoscope} size='5x' />
 const service_4 = <FontAwesomeIcon icon={faAmbulance} size='5x' />
-const top = <FontAwesomeIcon icon={faAward} size='5x' />
 
 function App() {
 
@@ -59,7 +58,7 @@ The Hospital also has a well-furnished Medical Library comprising of more than 8
 More than 50 companies are empanelled with the Hospital for providing credit facility to the patients. </p>
 
 					<p className="wow slideInRight">Our mission is to provide each patient with the world-class care, exceptional service and compassion we would want for our loved ones.</p>
-                  
+
 
 				</div>
 			</section>
