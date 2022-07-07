@@ -17,7 +17,7 @@
     "i": "^0.3.6",
     "jsonwebtoken": "^8.5.1",
     "mammoth": "^1.4.9",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.7.13",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
